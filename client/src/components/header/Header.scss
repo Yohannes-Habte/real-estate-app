@@ -1,0 +1,76 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $header-bg;
+
+  // Logo
+  .logo {
+    @include title;
+  }
+
+  // Search bar
+  .search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 30%;
+    position: relative;
+
+    .input-container {
+      @include inputContainer;
+
+      .input-field {
+        @include inputField;
+        @include shadow;
+        background-color: $search-bg;
+
+        &::placeholder {
+          font-size: $afs;
+        }
+      }
+    }
+
+    .input-highlight {
+      position: absolute;
+      bottom: .2rem;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background-color: $yellow;
+      transition: all 0.3s ease;
+    }
+
+    .input-field:focus {
+      top: -5px;
+      font-size: 12px;
+      color: #81a3e6;
+    }
+
+    .input-field:focus + .input-highlight {
+      width: 100%;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 1rem;
+      font-size: $afs;
+      cursor: pointer;
+
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+
+  // Navigation items
+  .list-items {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
