@@ -7,6 +7,7 @@
   justify-content: space-around;
   align-items: center;
   background-color: $header-bg;
+  padding: 0.5rem 0;
 
   // Logo
   .logo {
@@ -28,7 +29,7 @@
         @include inputField;
         @include shadow;
         background-color: $search-bg;
-
+  
         &::placeholder {
           font-size: $afs;
         }
@@ -72,5 +73,24 @@
     display: flex;
     flex-direction: row;
     gap: 2rem;
+
+    .list-item {
+      font-size: $afs;
+
+      .active {
+        position: relative;
+        color: $red;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -28px;
+          width: 100%;
+          height: 2px;
+          background-color: $red;
+        }
+      }
+    }
   }
 }

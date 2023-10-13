@@ -4,10 +4,11 @@ import { FaSearch } from 'react-icons/fa';
 import './Header.scss';
 
 const Header = () => {
+  // Active NavLink styling
+  const activeLink = ({ isActive }) => (isActive ? `active` : 'passive');
   return (
     <header className="header">
       <NavLink to={'/'}>
-        {' '}
         <h1 className="logo">LisaEstate</h1>
       </NavLink>
       <form action="" className="search">
@@ -25,16 +26,24 @@ const Header = () => {
 
       <ul className="list-items">
         <li className="list-item">
-          <NavLink to={'/'}>Home</NavLink>
+          <NavLink to={'/'} className={activeLink}>
+            Home
+          </NavLink>
         </li>
         <li className="list-item">
-          <NavLink to={'/about'}>About</NavLink>
+          <NavLink to={'/about'} className={activeLink}>
+            About
+          </NavLink>
         </li>
         <li className="list-item">
-          <NavLink to={'/contact'}> Contact</NavLink>
+          <NavLink to={'/contact'} className={activeLink}>
+            Contact
+          </NavLink>
         </li>
         <li className="list-item">
-          <NavLink to={'/login'}>Log In </NavLink>
+          <NavLink to={'/login'} className={activeLink}>
+            Sign In
+          </NavLink>
         </li>
       </ul>
     </header>

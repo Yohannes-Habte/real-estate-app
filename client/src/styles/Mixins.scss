@@ -75,7 +75,8 @@
   outline: none;
   background-color: transparent;
   padding: 1rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.5rem;
+  border-radius: $radius;
 }
 
 @mixin btn1 {
