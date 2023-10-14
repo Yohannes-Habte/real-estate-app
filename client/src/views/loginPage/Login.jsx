@@ -9,12 +9,19 @@ import { AiFillEyeInvisible } from 'react-icons/ai';
 import { HiOutlineEye } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '../../utiles/features';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../../redux/user/userSlice';
 
 const Login = () => {
   const navigate = useNavigate();
 
-  // global state variables
-  const [loading, setLoading] = useState(false);
+  // global state variables from React Redux
+  const { loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   // Local State variables
   const [email, setEmail] = useState('');
@@ -52,7 +59,7 @@ const Login = () => {
     setPassword('');
   };
 
-  // Submit logged in user Function
+  // Submit a logged in user
   const submitLoginUser = async (event) => {
     event.preventDefault();
 
@@ -71,6 +78,7 @@ const Login = () => {
     }
 
     try {
+      dispatch(signInStart());
       // The body
       const loginUser = {
         email: email,
@@ -82,17 +90,24 @@ const Login = () => {
         { withCredentials: true }
       );
 
+      // If success form the backend is false, then get the message
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+        return;
+      }
+
+      dispatch(signInSuccess(data));
       navigate('/');
     } catch (err) {
-      console.log(err);
+      dispatch(signInFailure(err.message));
     }
   };
 
   return (
     <main className="lagin-page">
-      {/* {isLoading && <EntirePageLoader />}  */}
-      <h1 className="login-title"> Welcome To Your Account </h1>
-      <div className="login-container">
+      <section className="login-container">
+        <h1 className="login-title"> Welcome To Your Account </h1>
+
         <figure className="login-icon-container">
           <FaUserAlt className="login-icon" />
         </figure>
@@ -162,7 +177,8 @@ const Login = () => {
             </p>
           </form>
         </fieldset>
-      </div>
+        {error && <p className="error-message"> {error} </p>}
+      </section>
     </main>
   );
 };

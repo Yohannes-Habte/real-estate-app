@@ -6,14 +6,14 @@
   padding: 1rem;
   z-index: 1;
 
-  .login-title {
-    @include title;
-  }
-
   .login-container {
     width: $laptop;
     margin: 1rem auto;
     @include shadow;
+
+    .login-title {
+      @include title;
+    }
 
     .login-icon-container {
       width: 24%;
@@ -137,22 +137,27 @@
         }
       }
     }
+
+    .error-message {
+      @include paragraph;
+      color: $red;
+    }
   }
 }
 
 /* Tablet screen size */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .lagin-page {
-    .login-title {
-      font-size: 2.5rem;
-      text-align: center;
-      padding: 2rem;
-    }
-
     .login-container {
       width: 80%;
       margin: auto;
       @include shadow;
+
+      .login-title {
+        font-size: 2.5rem;
+        text-align: center;
+        padding: 2rem;
+      }
 
       .login-icon-container {
         width: 12%;
@@ -176,6 +181,11 @@
           }
         }
       }
+
+      .error-message {
+        @include paragraph;
+        color: $red;
+      }
     }
   }
 }
@@ -183,14 +193,14 @@
 /* Labtop screen size */
 @media screen and (min-width: 1024px) {
   .lagin-page {
-    .login-title {
-      @include title;
-    }
-
     .login-container {
       width: 50%;
       margin: auto;
       @include shadow;
+
+      .login-title {
+        @include title;
+      }
 
       .login-icon-container {
         width: 12%;
@@ -276,6 +286,13 @@
             }
           }
         }
+      }
+
+      .error-message {
+        @include paragraph;
+        color: $red;
+        width: 90%;
+        margin: auto;
       }
     }
   }
