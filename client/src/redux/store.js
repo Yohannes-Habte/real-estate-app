@@ -12,6 +12,7 @@ const persistConfig = {
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+// Export store
 export const store = configureStore({
   reducer: persistedReducer, // reducer: { user: userReducer } => { user: userReducer }  replaced with persistedReducer in order to store the data in the local storge
   middleware: (getDefaultMiddleware) =>
@@ -20,4 +21,5 @@ export const store = configureStore({
     }),
 });
 
+// Export persistor
 export const persistor = persistStore(store);

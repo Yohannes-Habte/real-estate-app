@@ -53,11 +53,28 @@
   }
 }
 
+@mixin googleButton {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid $yellow;
+  font-weight: $aafs;
+  font-size: $afs;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: $button-hover;
+    color: $red;
+  }
+}
+
 // Form input and label
 @mixin legend {
   font-size: $afs;
   font-weight: $aafw;
-  padding: 0 1rem ;
+  padding: 0 1rem;
 }
 
 @mixin inputContainer {

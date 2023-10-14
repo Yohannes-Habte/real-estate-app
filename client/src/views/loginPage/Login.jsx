@@ -15,6 +15,7 @@ import {
   signInSuccess,
   signInFailure,
 } from '../../redux/user/userSlice';
+import Auth from '../../components/google/Auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -162,7 +163,6 @@ const Login = () => {
                 <a href=""> Forget your password? </a>
               </div>
             </div>
-
             <button
               // onClick={handleClick}
               type="submit"
@@ -171,10 +171,11 @@ const Login = () => {
             >
               {loading ? 'loading' : 'Login'}
             </button>
-
             <p className="haveNoAccount">
               Don not have an account? <NavLink to="/register">Sign Up</NavLink>
             </p>
+
+            <Auth login={'login'} />
           </form>
         </fieldset>
         {error && <p className="error-message"> {error} </p>}

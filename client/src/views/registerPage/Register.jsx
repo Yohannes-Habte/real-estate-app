@@ -8,11 +8,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '../../utiles/features';
+import Auth from '../../components/google/Auth';
 
 // Initial State
 const initialSate = {
-  firstName: '',
-  lastName: '',
+  username: '',
   email: '',
   password: '',
 };
@@ -24,12 +24,9 @@ const Register = () => {
 
   // Local state variables
   const [formData, setFormData] = useState(initialSate);
-  const [isLoading, setIsLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Distructure form data
-  const { firstName, lastName, email, password } = formData;
+  const { username, email, password } = formData;
 
   // Input change handle function
   const handleInputChange = (e) => {
@@ -61,7 +58,7 @@ const Register = () => {
   // Function to register the user
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!firstName || !lastName || !email || !password) {
+    if (!username || !email || !password) {
       return toast.error('Please fill in all fields!');
     }
 
@@ -77,8 +74,7 @@ const Register = () => {
 
     try {
       const userData = {
-        firstName: firstName,
-        lastName: lastName,
+        username: username,
         email: email,
         password: password,
       };
@@ -92,7 +88,7 @@ const Register = () => {
       navigate('/login');
       reset();
       return toast.success(
-        `${firstName}, you have successfuly created an account!`
+        `${username}, you have successfuly created an account!`
       );
     } catch (err) {
       console.log(err);
@@ -111,35 +107,16 @@ const Register = () => {
               <input
                 type="text"
                 required
-                name={'firstName'}
-                id={'firstName'}
-                value={firstName}
+                name={'username'}
+                id={'username'}
+                value={username}
                 onChange={handleInputChange}
                 placeholder="First Name"
                 className="input-field"
               />
 
-              <label htmlFor={'firstName'} className="input-label">
+              <label htmlFor={'username'} className="input-label">
                 First Name
-              </label>
-              <span className="input-highlight"></span>
-            </div>
-
-            <div className="input-container">
-              <FaUserAlt className="input-icon" />
-              <input
-                type="text"
-                name={'lastName'}
-                id={'lastName'}
-                required
-                value={lastName}
-                onChange={handleInputChange}
-                placeholder="Last Name"
-                className="input-field"
-              />
-
-              <label htmlFor={'lastName'} className="input-label">
-                Last Name
               </label>
               <span className="input-highlight"></span>
             </div>
@@ -198,7 +175,8 @@ const Register = () => {
             <button className="register-button">
               {loading ? 'loading' : 'Sign Up'}
             </button>
-            <button className="google-btn">Sig Up with Google</button>
+
+            <Auth signup={'signup'} />
           </form>
         </fieldset>
 
