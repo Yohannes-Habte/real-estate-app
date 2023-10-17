@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Register.scss';
+import "./Profile.scss"
 import { FaUserAlt } from 'react-icons/fa';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
@@ -16,7 +16,7 @@ const initialSate = {
   email: '',
   password: '',
 };
-const Register = () => {
+const Profile = () => {
   const navigate = useNavigate();
 
   // global state variables
@@ -189,4 +189,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Profile;

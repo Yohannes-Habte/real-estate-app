@@ -2,8 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import './Header.scss';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  // Find logged in user using useSelector from the react redux
+  const { currentUser } = useSelector((state) => state.user);
   // Active NavLink styling
   const activeLink = ({ isActive }) => (isActive ? `active` : 'passive');
   return (
@@ -40,11 +43,17 @@ const Header = () => {
             Contact
           </NavLink>
         </li>
-        <li className="list-item">
-          <NavLink to={'/login'} className={activeLink}>
-            Sign In
-          </NavLink>
-        </li>
+        {currentUser ? (
+          <figure className="image-container">
+            <img className="image" src={currentUser.image} alt={'Profile'} />
+          </figure>
+        ) : (
+          <li className="list-item">
+            <NavLink to={'/profile'} className={activeLink}>
+              Sign In
+            </NavLink>
+          </li>
+        )}
       </ul>
     </header>
   );

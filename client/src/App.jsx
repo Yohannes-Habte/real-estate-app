@@ -6,9 +6,11 @@ import Contact from './views/contactPage/Contact';
 import Login from './views/loginPage/Login';
 import NotFound from './views/notFound/NotFound';
 import Header from './components/header/Header';
-import Register from './views/registerPage/Register';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Profile from './views/profilePage/Profile';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
 
 const App = () => {
   return (
@@ -33,7 +35,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

@@ -29,7 +29,7 @@
         @include inputField;
         @include shadow;
         background-color: $search-bg;
-  
+
         &::placeholder {
           font-size: $afs;
         }
@@ -38,7 +38,7 @@
 
     .input-highlight {
       position: absolute;
-      bottom: .2rem;
+      bottom: 0.5rem;
       left: 0;
       height: 2px;
       width: 0;
@@ -85,11 +85,24 @@
           content: '';
           position: absolute;
           left: 0;
-          bottom: -28px;
+          bottom: -1.6rem;
           width: 100%;
           height: 2px;
           background-color: $red;
         }
+      }
+    }
+
+    .image-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .image {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        object-fit: cover;
       }
     }
   }
