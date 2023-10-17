@@ -244,3 +244,24 @@
   line-height: 2rem;
   padding: $textPadding;
 }
+
+@mixin delete {
+  color: $red;
+  cursor: pointer;
+  font-size: $afs;
+  font-weight: $aafw;
+  border: 1px solid $tomato;
+  padding: 0.5rem;
+  border-radius: $radius;
+
+  &:hover {
+    background-color: $delete-hover;
+    color: black;
+  }
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

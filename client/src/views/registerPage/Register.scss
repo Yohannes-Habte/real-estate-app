@@ -1,0 +1,349 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+// Bobile styling
+.register-page {
+  width: $mobile;
+  margin: 1rem auto;
+
+  .register-container {
+    width: $mobile;
+    margin: auto;
+
+    .title {
+      @include title;
+    }
+    .register-field {
+      border: none;
+
+      .register-legend {
+        @include legend;
+      }
+
+      .register-form {
+        .input-container {
+          position: relative;
+          @include inputContainer;
+
+          .input-icon {
+            position: absolute;
+            top: 1rem;
+            left: 0.5rem;
+          }
+
+          .input-field {
+            @include inputField;
+            padding-left: 2rem;
+          }
+
+          .input-label {
+            position: absolute;
+            top: 0;
+            left: 1.5rem;
+            color: rgba(204, 204, 204, 0);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+          }
+
+          .input-highlight {
+            position: absolute;
+            bottom: 0.2rem;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background-color: $yellow;
+            transition: all 0.3s ease;
+          }
+
+          .input-field:focus + .input-label {
+            top: -20px;
+            font-size: 12px;
+            color: #81a3e6;
+          }
+
+          .input-field:focus + .input-label + .input-highlight {
+            width: 100%;
+          }
+
+          .icon {
+            position: absolute;
+            top: 1rem;
+            right: 0.5rem;
+            font-size: $afs;
+          }
+        }
+
+        .register-consent {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin: 1rem 0;
+
+          .register-consent-input {
+            margin-right: 1rem;
+          }
+
+          // styling the checkbox
+          .register-consent-input[type='checkbox'] {
+            width: 30px;
+            height: 20px;
+          }
+
+          .accept {
+            font-size: 1.3rem;
+          }
+
+          .terms-of-user {
+            font-size: 1.3rem;
+            color: blue;
+            padding-left: 0.5rem;
+          }
+        }
+
+        .register-button {
+          @include button;
+          width: 100%;
+        }
+      }
+    }
+
+    .haveAccount {
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+
+      & a {
+        font-weight: bold;
+        color: blue;
+      }
+    }
+  }
+}
+
+/* Tablet screen size */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .register-page {
+    width: $tablet;
+    margin: 1rem auto;
+
+    .register-container {
+      width: $tablet;
+      margin: auto;
+
+      .title {
+        @include title;
+      }
+      .register-field {
+        .register-legend {
+          @include legend;
+        }
+
+        .register-form {
+          .input-container {
+            position: relative;
+            @include inputContainer;
+
+            .input-icon {
+              position: absolute;
+              top: 1rem;
+              left: 0.5rem;
+            }
+
+            .input-field {
+              @include inputField;
+              padding-left: 2rem;
+            }
+
+            .input-label {
+              position: absolute;
+              top: 0;
+              left: 1.5rem;
+              color: rgba(204, 204, 204, 0);
+              font-size: 1rem;
+              pointer-events: none;
+              transition: all 0.3s ease;
+            }
+
+            .input-highlight {
+              position: absolute;
+              bottom: 0.2rem;
+              left: 0;
+              height: 2px;
+              width: 0;
+              background-color: $yellow;
+              transition: all 0.3s ease;
+            }
+
+            .input-field:focus + .input-label {
+              top: -20px;
+              font-size: 12px;
+              color: #81a3e6;
+            }
+
+            .input-field:focus + .input-label + .input-highlight {
+              width: 100%;
+            }
+
+            .icon {
+              position: absolute;
+              top: 1rem;
+              right: 0.5rem;
+              font-size: $afs;
+            }
+          }
+
+          .register-consent {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1rem;
+
+            .register-consent-input {
+              margin-right: 1rem;
+            }
+
+            // styling the checkbox
+            .register-consent-input[type='checkbox'] {
+              width: 30px;
+              height: 20px;
+            }
+
+            .accept {
+              font-size: 1.3rem;
+            }
+
+            .terms-of-user {
+              font-size: 1.3rem;
+              color: blue;
+              padding-left: 0.5rem;
+            }
+          }
+
+          .register-button {
+            @include button;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Labtop screen size */
+@media screen and (min-width: 1024px) {
+  .register-page {
+    width: 100%;
+    min-height: 100vh;
+
+    .register-container {
+      width: 50%;
+      margin: auto;
+      @include shadow;
+
+      .title {
+        @include title;
+      }
+      .register-field {
+        .register-legend {
+          @include legend;
+        }
+
+        .register-form {
+          .input-container {
+            position: relative;
+            @include inputContainer;
+
+            .input-icon {
+              position: absolute;
+              top: 1rem;
+              left: 0.5rem;
+            }
+
+            .input-field {
+              @include inputField;
+              padding-left: 2rem;
+            }
+
+            .input-label {
+              position: absolute;
+              top: 0;
+              left: 1.5rem;
+              color: rgba(204, 204, 204, 0);
+              font-size: 1rem;
+              pointer-events: none;
+              transition: all 0.3s ease;
+            }
+
+            .input-highlight {
+              position: absolute;
+              bottom: 0.2rem;
+              left: 0;
+              height: 2px;
+              width: 0;
+              background-color: $yellow;
+              transition: all 0.3s ease;
+            }
+
+            .input-field:focus + .input-label {
+              top: -5px;
+              font-size: 12px;
+              color: #81a3e6;
+            }
+
+            .input-field:focus + .input-label + .input-highlight {
+              width: 100%;
+            }
+
+            .icon {
+              position: absolute;
+              top: 1rem;
+              right: 0.5rem;
+              font-size: $afs;
+            }
+          }
+
+          .register-consent {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 1rem 0;
+
+            .register-consent-input {
+              margin-right: 1rem;
+            }
+
+            // styling the checkbox
+            .register-consent-input[type='checkbox'] {
+              width: 30px;
+              height: 20px;
+            }
+
+            .accept {
+              font-size: 1.3rem;
+            }
+
+            .terms-of-user {
+              font-size: 1.3rem;
+              color: blue;
+              padding-left: 0.5rem;
+            }
+          }
+
+          .register-button {
+            @include button;
+            width: 100%;
+            margin: 0 0 1rem 0;
+          }
+        }
+
+        .haveAccount {
+          font-size: 1.4rem;
+
+          & a {
+            font-weight: bold;
+            color: blue;
+          }
+        }
+      }
+    }
+  }
+}
