@@ -28,7 +28,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Update input data
   const updateDat = (e) => {
@@ -49,13 +48,8 @@ const Login = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  // Function that display and hide the fonfirm password
-  const displayConfirmPassword = () => {
-    setShowConfirmPassword((prevState) => !prevState);
-  };
-
   // Reset all state variables for the login form
-  const resetVariables = () => {
+  const reset = () => {
     setEmail('');
     setPassword('');
   };
@@ -98,7 +92,8 @@ const Login = () => {
       }
 
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate('/profile');
+      reset();
     } catch (err) {
       dispatch(signInFailure(err.message));
     }

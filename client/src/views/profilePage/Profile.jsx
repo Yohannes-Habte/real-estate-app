@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Profile.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '../../utiles/features';
 import axios from 'axios';
@@ -17,25 +17,32 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../../firebase';
+import {
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from '../../redux/user/userSlice';
 
-// Initial State
-const initialSate = {
-  username: '',
-  email: '',
-  password: '',
-};
 const Profile = () => {
   const navigate = useNavigate();
   // Find logged in user using useSelector from the react redux
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
+  // Initial State
+  const initialSate = {
+    username: currentUser?.username || '',
+    email: currentUser?.email || '',
+    password: currentUser?.password || '',
+    image: currentUser?.image || 'https://i.ibb.co/4pDNDk1/avatar.png',
+  };
   // Local state variables
   const [profileData, setProfileData] = useState(initialSate);
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(undefined);
   const [imagePercentageUpLoad, setImagePercentageUpLoad] = useState(0);
   const [imageUpLoadError, setImageUpLoadError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   // useRef for the user photo
   const fileRef = useRef(null);
@@ -50,6 +57,7 @@ const Profile = () => {
     }
   }, [image]);
 
+  // This function upload image using firebase
   const handleImageUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -88,37 +96,24 @@ const Profile = () => {
   // Function to register the user
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!username || !email || !password) {
-      return toast.error('Please fill in all fields!');
-    }
-
-    if (!validateEmail(email)) {
-      return toast.error('Please enter a valid email!');
-    }
-
-    if (!validatePassword(password)) {
-      return toast.error(
-        'Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
-      );
-    }
 
     try {
-      const updateUserData = {
-        username: username,
-        email: email,
-        password: password,
-      };
+      dispatch(updateUserStart());
 
-      const { data } = await axios.post(
-        'http://localhost:5000/api/users/profile',
-        updateUserData,
+      const { data } = await axios.put(
+        `http://localhost:5000/api/users/update/${currentUser._id}`,
+        profileData,
         { withCredentials: true }
       );
-
+      if (data.success) {
+        dispatch(updateUserFailure(data.message));
+      }
+      dispatch(updateUserSuccess(data));
+      setSuccess(true)
       event.target.reset();
-      navigate('/');
+      // navigate('/');
     } catch (err) {
-      console.log(err);
+      dispatch(updateUserFailure(err.message));
     }
   };
 
@@ -180,7 +175,7 @@ const Profile = () => {
               required
               name={'username'}
               id={'username'}
-              value={username}
+              defaultValue={username}
               onChange={handleInputChange}
               placeholder="Username"
               className="input-field"
@@ -198,7 +193,7 @@ const Profile = () => {
               type="email"
               name={'email'}
               id={'email'}
-              value={email}
+              defaultValue={email}
               onChange={handleInputChange}
               placeholder="Email"
               className="input-field"
@@ -215,7 +210,7 @@ const Profile = () => {
               type={showPassword ? 'text' : 'password'}
               name={'password'}
               id={'password'}
-              value={password}
+              defaultValue={password}
               onChange={handleInputChange}
               placeholder="Password"
               className="input-field"
@@ -233,7 +228,7 @@ const Profile = () => {
             </span>
           </div>
 
-          <button className="register-button">
+          <button disabled={loading} className="register-button">
             {loading ? 'loading' : 'Update'}
           </button>
         </form>
@@ -244,6 +239,10 @@ const Profile = () => {
         </div>
 
         <button> Show Listings</button>
+        <p className="error"> {error && error} </p>
+        <p className="success">
+          {success && 'User data is updated successfully!'}{' '}
+        </p>
       </section>
     </main>
   );

@@ -10,6 +10,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    // Register and log in user
     signInStart: (state) => {
       state.loading = true;
     },
@@ -22,10 +23,32 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+
+    // Update user data
+    updateUserStart: (state) => {
+      state.loading = true;
+    },
+    updateUserSuccess: (state, action) => {
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+
+    updateUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { signInStart, signInSuccess, signInFailure } = userSlice.actions;
+export const {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+} = userSlice.actions;
 
 export default userSlice.reducer;

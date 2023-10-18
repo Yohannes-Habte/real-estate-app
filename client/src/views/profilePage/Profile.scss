@@ -129,5 +129,19 @@
         @include delete;
       }
     }
+
+    .error {
+      width: 50%;
+      margin: auto;
+      color: $red;
+      @include paragraph;
+    }
+
+    .success {
+      width: 50%;
+      margin: auto;
+      color: $green;
+      @include paragraph;
+    }
   }
 }

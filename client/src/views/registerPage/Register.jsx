@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./Register.scss"
+import './Register.scss';
 import { FaUserAlt } from 'react-icons/fa';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '../../utiles/features';
 import Auth from '../../components/google/Auth';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Initial State
 const initialSate = {
@@ -19,8 +20,9 @@ const initialSate = {
 const Register = () => {
   const navigate = useNavigate();
 
-  // global state variables
-  const [loading, setLoading] = useState(false);
+  // global state variables from React Redux
+  const { loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   // Local state variables
   const [formData, setFormData] = useState(initialSate);
@@ -111,12 +113,12 @@ const Register = () => {
                 id={'username'}
                 value={username}
                 onChange={handleInputChange}
-                placeholder="First Name"
+                placeholder="Username"
                 className="input-field"
               />
 
               <label htmlFor={'username'} className="input-label">
-                First Name
+                Username
               </label>
               <span className="input-highlight"></span>
             </div>

@@ -1,6 +1,6 @@
 # real-estate-app
 
-## Add redux toolkit
 
-## Add redux persist 
-1. It is used to store data in the local storage
+## Profle page
+1. Profile page is not saving current logged in user.
+2. This needs to be solved soon

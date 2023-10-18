@@ -32,7 +32,7 @@ const Auth = ({ login, signup }) => {
       );
 
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate('/profile');
     } catch (error) {
       console.log('Could not sigin with google', error);
     }
