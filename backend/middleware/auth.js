@@ -22,7 +22,7 @@ export const userAuth = async (req, res, next) => {
       req.user = user;
       next();
     } else {
-      return next(createError(403, 'You can update only your own account!'));
+      return next(createError(403, 'User is not authorized!'));
     }
   } catch (error) {
     next(err);
@@ -43,7 +43,7 @@ export const adminAuth = async (req, res, next) => {
     // Find user id
     const user = await User.findById(decodedToken.id);
 
-    if (user && user.id === req.params.id && user.role === 'admin') {
+    if (user.role === 'admin') {
       req.user = user;
       next();
     } else {

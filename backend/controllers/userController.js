@@ -151,12 +151,20 @@ export const googleLoginRegister = async (req, res, next) => {
         image: req.body.photo,
       });
 
-      await newUser.save();
+      const saveUser = await newUser.save();
+      const token = generateToken(saveUser._id);
 
-      const token = generateToken(newUser._id);
-      console.log('The token is', token);
-      const { password, role, ...otherDetails } = newUser._doc;
-      return res.status(200).json(otherDetails);
+      const { password, role, ...otherDetails } = saveUser._doc;
+      return res
+        .cookie('access_token', token, {
+          path: '/',
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 3600),
+          sameSite: 'none',
+          secure: true,
+        })
+        .status(200)
+        .json(otherDetails);
     }
   } catch (error) {
     console.log(error);
@@ -191,6 +199,40 @@ export const getUsers = async (req, res, next) => {
     next(
       createError(400, 'User unable to access all users. Please try again!')
     );
+  }
+};
+
+//===========================================================
+// Delete a user from the database
+//===========================================================
+export const deleteUser = async (req, res, next) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (user) {
+      await User.findByIdAndDelete(userId);
+      res.clearCookie('access_token');
+      res.status(200).json(`User has been successfully deleted!`);
+    } else {
+      return next(createError(400, 'User does not exist! Please try again!'));
+    }
+  } catch (error) {
+    console.log(error);
+    next(createError(400, 'User is not deleteted. Please try again!'));
+  }
+};
+
+//===========================================================
+// Log out a user
+//===========================================================
+export const userLogOut = async (req, res, next) => {
+  try {
+    res.clearCookie('access_token');
+    res.status(200).json('User has been successfully logged out!');
+  } catch (error) {
+    next(error);
   }
 };
 

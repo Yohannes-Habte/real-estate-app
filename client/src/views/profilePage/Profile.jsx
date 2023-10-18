@@ -18,9 +18,15 @@ import {
 } from 'firebase/storage';
 import { app } from '../../firebase';
 import {
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
+  userLogoutFailure,
+  userLogoutStart,
+  userLogoutSuccess,
 } from '../../redux/user/userSlice';
 
 const Profile = () => {
@@ -105,15 +111,49 @@ const Profile = () => {
         profileData,
         { withCredentials: true }
       );
-      if (data.success) {
+      if (data.success === false) {
         dispatch(updateUserFailure(data.message));
       }
       dispatch(updateUserSuccess(data));
-      setSuccess(true)
+      setSuccess(true);
       event.target.reset();
       // navigate('/');
     } catch (err) {
       dispatch(updateUserFailure(err.message));
+    }
+  };
+
+  // Delete user account
+  const handleDelete = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/users/delete/${currentUser._id}`
+      );
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  // Delete user account
+  const handleLogout = async () => {
+    try {
+      dispatch(userLogoutStart());
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/users/user/logout`
+      );
+
+      if (data.success === false) {
+        dispatch(userLogoutFailure(data.message));
+      }
+      dispatch(userLogoutSuccess(data));
+    } catch (error) {
+      dispatch(userLogoutFailure(error.message));
     }
   };
 
@@ -233,9 +273,15 @@ const Profile = () => {
           </button>
         </form>
         <button>Create Listing</button>
+
+        {/* Delete and Log out */}
         <div className="account-management">
-          <span className="delete">Delete Account</span>
-          <span className="sign-out">Sign Out</span>
+          <span onClick={handleDelete} className="delete">
+            Delete Account
+          </span>
+          <span onClick={handleLogout} className="sign-out">
+            Sign Out
+          </span>
         </div>
 
         <button> Show Listings</button>
