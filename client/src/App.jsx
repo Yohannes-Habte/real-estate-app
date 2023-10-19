@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Register from './views/registerPage/Register';
 import Profile from './views/profilePage/Profile';
+import Houses from './views/housesPage/Houses';
 
 const App = () => {
   return (
@@ -36,9 +37,10 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* Profile page is protected */}
+          {/* Profile & Houses pages are protected */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/houses" element={<Houses />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

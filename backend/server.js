@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 // Router Routes
 import userRouter from './routes/userRoutes.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js';
+import houseRouter from './routes/houseRoutes.js';
 
 
 // Express App
@@ -46,6 +47,7 @@ mongoose
 
 // End points
 app.use("/api/users", userRouter)
+app.use("/api/houses", houseRouter)
 
 // Global error handler
 app.use(globalErrorHandler)

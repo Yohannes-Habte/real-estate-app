@@ -28,31 +28,6 @@
   line-height: 1.5rem;
 }
 
-@mixin imageSize {
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-@mixin button {
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
-  border: none;
-  background-color: $button-bg;
-  font-weight: $aafs;
-  font-size: $afs;
-  color: white;
-  border-radius: $radius;
-  cursor: pointer;
-  transition: 0.5s;
-
-  &:hover {
-    background-color: $button-hover;
-    color: $red;
-  }
-}
-
 @mixin googleButton {
   width: 100%;
   margin: 1rem 0;
@@ -79,8 +54,7 @@
 
 @mixin inputContainer {
   width: 100%;
-  display: flex;
-  align-items: center;
+  @include flexCenter;
 }
 
 @mixin inputField {
@@ -88,15 +62,51 @@
   width: 100%;
   font-size: 1rem;
   border: none;
-  border: 2px solid #ccc;
+  border: 1px solid $field-bg;
   outline: none;
   background-color: transparent;
   padding: 1rem;
   margin-bottom: 0.5rem;
   border-radius: $radius;
 }
+@mixin button1 {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: $button-bg;
+  font-weight: $aafs;
+  font-size: $afs;
+  color: $white;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: 0.5s;
 
-@mixin btn1 {
+  &:hover {
+    background-color: $button-hover;
+    color: $red;
+  }
+}
+
+@mixin button2 {
+  @include flexCenter;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: $green;
+  font-weight: $aafs;
+  font-size: $afs;
+  color: $white;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: $button-hover2;
+    color: $red;
+  }
+}
+
+@mixin button3 {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,6 +137,10 @@
   &:focus {
     box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
       0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+
+  &:hover {
+    color: $red;
   }
 }
 

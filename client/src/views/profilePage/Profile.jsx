@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '../../utiles/features';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
@@ -271,8 +271,10 @@ const Profile = () => {
           <button disabled={loading} className="register-button">
             {loading ? 'loading' : 'Update'}
           </button>
+          <Link to={'/houses'} className={'create-houses'}>
+            Create Houses 
+          </Link>
         </form>
-        <button>Create Listing</button>
 
         {/* Delete and Log out */}
         <div className="account-management">
@@ -283,8 +285,6 @@ const Profile = () => {
             Sign Out
           </span>
         </div>
-
-        <button> Show Listings</button>
         <p className="error"> {error && error} </p>
         <p className="success">
           {success && 'User data is updated successfully!'}{' '}
