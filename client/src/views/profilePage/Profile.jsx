@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Profile.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { validateEmail, validatePassword } from '../../utiles/features';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
+import { AiFillEyeInvisible } from 'react-icons/ai';
 import { useRef } from 'react';
 import {
   getDownloadURL,
@@ -28,6 +26,7 @@ import {
   userLogoutStart,
   userLogoutSuccess,
 } from '../../redux/user/userSlice';
+import { HiOutlineEye } from 'react-icons/hi';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -144,8 +143,8 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       dispatch(userLogoutStart());
-      const { data } = await axios.delete(
-        `http://localhost:5000/api/users/user/logout`
+      const { data } = await axios.get(
+        `http://localhost:5000/api/auths/logout`
       );
 
       if (data.success === false) {
@@ -193,6 +192,7 @@ const Profile = () => {
         </figure>
 
         <form onSubmit={handleSubmit} action="" className="profile-form">
+          
           {/* Image input */}
           <div className="file-input-container">
             <input
@@ -207,64 +207,59 @@ const Profile = () => {
             />
           </div>
 
-          {/* Non Image inputs */}
+          {/* Username */}
           <div className="input-container">
-            <FaUserAlt className="input-icon" />
+            <FaUserAlt className="icon" />
             <input
               type="text"
-              required
               name={'username'}
               id={'username'}
-              defaultValue={username}
+              value={username}
               onChange={handleInputChange}
               placeholder="Username"
               className="input-field"
             />
-
             <label htmlFor={'username'} className="input-label">
               Username
             </label>
             <span className="input-highlight"></span>
           </div>
 
+          {/* Email Address */}
           <div className="input-container">
-            <MdEmail className="input-icon" />
+            <MdEmail className="icon" />
             <input
               type="email"
-              name={'email'}
-              id={'email'}
-              defaultValue={email}
+              name="email"
+              id="email"
+              value={email}
               onChange={handleInputChange}
-              placeholder="Email"
+              placeholder="Enter Email"
               className="input-field"
             />
-            <label htmlFor={'email'} className="input-label">
+            <label htmlFor="email" className="input-label">
               Email Address
             </label>
             <span className="input-highlight"></span>
           </div>
 
           <div className="input-container">
-            <RiLockPasswordFill className="input-icon" />
+            <RiLockPasswordFill className="icon" />
             <input
               type={showPassword ? 'text' : 'password'}
-              name={'password'}
-              id={'password'}
-              defaultValue={password}
+              name="password"
+              value={password}
               onChange={handleInputChange}
-              placeholder="Password"
+              //onBlur={checkPasswordFormat}
+              placeholder="Enter Password"
               className="input-field"
             />
-            <label htmlFor={'password'} className="input-label">
+            <label htmlFor="password" className="input-label">
               Password
             </label>
             <span className="input-highlight"></span>
             <span onClick={displayPassword} className="password-display">
-              {showPassword ? (
-                <AiFillEyeInvisible className="icon" />
-              ) : (
-                <AiFillEye className="icon" />
-              )}
+              {showPassword ? <AiFillEyeInvisible /> : <HiOutlineEye />}
             </span>
           </div>
 
@@ -272,7 +267,7 @@ const Profile = () => {
             {loading ? 'loading' : 'Update'}
           </button>
           <Link to={'/houses'} className={'create-houses'}>
-            Create Houses 
+            Create Houses
           </Link>
         </form>
 

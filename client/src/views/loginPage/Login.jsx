@@ -80,7 +80,7 @@ const Login = () => {
         password: password,
       };
       const { data } = await axios.post(
-        'http://localhost:5000/api/users/login',
+        'http://localhost:5000/api/auths/login',
         loginUser,
         { withCredentials: true }
       );
@@ -110,6 +110,7 @@ const Login = () => {
         <fieldset className="login-fieldset">
           <legend className="login-legend">User Login </legend>
           <form onSubmit={submitLoginUser} className="login-form">
+            {/* Email Address */}
             <div className="input-container">
               <MdEmail className="icon" />
               <input
@@ -126,6 +127,8 @@ const Login = () => {
               </label>
               <span className="input-highlight"></span>
             </div>
+
+            {/* Email Address */}
             <div className="input-container">
               <RiLockPasswordFill className="icon" />
               <input

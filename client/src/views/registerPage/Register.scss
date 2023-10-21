@@ -25,25 +25,22 @@
           position: relative;
           @include inputContainer;
 
-          .input-icon {
-            position: absolute;
-            top: 1rem;
-            left: 0.5rem;
-          }
-
           .input-field {
             @include inputField;
+            margin-bottom: $radius;
             padding-left: 2rem;
+
+            &::placeholder {
+              color: gray;
+            }
           }
 
           .input-label {
+            @include inputLabel;
             position: absolute;
             top: 0;
-            left: 1.5rem;
+            left: 2rem;
             color: rgba(204, 204, 204, 0);
-            font-size: 1rem;
-            pointer-events: none;
-            transition: all 0.3s ease;
           }
 
           .input-highlight {
@@ -57,9 +54,9 @@
           }
 
           .input-field:focus + .input-label {
-            top: 0;
+            top: -20px;
             font-size: 12px;
-            color: #81a3e6;
+            color: #007bff;
           }
 
           .input-field:focus + .input-label + .input-highlight {
@@ -68,9 +65,19 @@
 
           .icon {
             position: absolute;
-            top: 1rem;
-            right: 0.5rem;
-            font-size: $afs;
+            top: 1.1rem;
+            left: 0.5rem;
+            font-size: 1rem;
+          }
+
+          // displaying password
+          .password-display {
+            position: absolute;
+            top: 50%;
+            right: 3rem;
+            transform: translatey(-50%);
+            font-size: 1.3rem;
+            cursor: pointer;
           }
         }
 
@@ -248,29 +255,27 @@
         }
 
         .register-form {
+       
           .input-container {
             position: relative;
             @include inputContainer;
 
-            .input-icon {
-              position: absolute;
-              top: 1rem;
-              left: 0.5rem;
-            }
-
             .input-field {
               @include inputField;
+              margin-bottom: $radius;
               padding-left: 2rem;
+
+              &::placeholder {
+                color: gray;
+              }
             }
 
             .input-label {
+              @include inputLabel;
               position: absolute;
               top: 0;
-              left: 1.5rem;
+              left: 2rem;
               color: rgba(204, 204, 204, 0);
-              font-size: 1rem;
-              pointer-events: none;
-              transition: all 0.3s ease;
             }
 
             .input-highlight {
@@ -284,9 +289,9 @@
             }
 
             .input-field:focus + .input-label {
-              top: -5px;
+              top: -20px;
               font-size: 12px;
-              color: #81a3e6;
+              color: #007bff;
             }
 
             .input-field:focus + .input-label + .input-highlight {
@@ -295,9 +300,19 @@
 
             .icon {
               position: absolute;
-              top: 1rem;
-              right: 0.5rem;
-              font-size: $afs;
+              top: 1.1rem;
+              left: 0.5rem;
+              font-size: 1rem;
+            }
+
+            // displaying password
+            .password-display {
+              position: absolute;
+              top: 50%;
+              right: 1rem;
+              transform: translatey(-50%);
+              font-size: 1.3rem;
+              cursor: pointer;
             }
           }
 
@@ -344,6 +359,10 @@
           }
         }
       }
+    }
+
+    .error {
+      color: $red;
     }
   }
 }

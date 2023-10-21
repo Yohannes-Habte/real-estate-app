@@ -13,3 +13,5 @@ export const createHouse = async (req, res, next) => {
     next(error);
   }
 };
+
+

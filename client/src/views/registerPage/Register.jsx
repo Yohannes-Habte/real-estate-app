@@ -7,9 +7,9 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { validateEmail, validatePassword } from '../../utiles/features';
 import Auth from '../../components/google/Auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { validateEmail, validatePassword } from '../../utiles/features';
+import { HiOutlineEye } from 'react-icons/hi';
 
 // Initial State
 const initialSate = {
@@ -20,14 +20,12 @@ const initialSate = {
 const Register = () => {
   const navigate = useNavigate();
 
-  // global state variables from React Redux
-  const { loading, error } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
   // Local state variables
-  const [formData, setFormData] = useState(initialSate);
+  const [formData, setFormData] = useState({ initialSate });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Distructure form data
+  // Destructuring the initial variables
   const { username, email, password } = formData;
 
   // Input change handle function
@@ -60,9 +58,6 @@ const Register = () => {
   // Function to register the user
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!username || !email || !password) {
-      return toast.error('Please fill in all fields!');
-    }
 
     if (!validateEmail(email)) {
       return toast.error('Please enter a valid email!');
@@ -75,25 +70,26 @@ const Register = () => {
     }
 
     try {
-      const userData = {
-        username: username,
-        email: email,
-        password: password,
-      };
-
       const { data } = await axios.post(
-        'http://localhost:5000/api/users/register',
-        userData,
+        'http://localhost:5000/api/auths/register',
+        formData,
         { withCredentials: true }
       );
 
+      // If there is errror...
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+
       navigate('/login');
       reset();
-      return toast.success(
-        `${username}, you have successfuly created an account!`
-      );
     } catch (err) {
       console.log(err);
+      setError(error.message);
     }
   };
 
@@ -104,11 +100,11 @@ const Register = () => {
         <fieldset className="register-field">
           {/* <legend className="register-legend"> Sign Up for Free </legend> */}
           <form onSubmit={handleSubmit} action="" className="register-form">
+            {/* Username */}
             <div className="input-container">
-              <FaUserAlt className="input-icon" />
+              <FaUserAlt className="icon" />
               <input
                 type="text"
-                required
                 name={'username'}
                 id={'username'}
                 value={username}
@@ -116,51 +112,48 @@ const Register = () => {
                 placeholder="Username"
                 className="input-field"
               />
-
               <label htmlFor={'username'} className="input-label">
                 Username
               </label>
               <span className="input-highlight"></span>
             </div>
 
+            {/* Email address */}
             <div className="input-container">
-              <MdEmail className="input-icon" />
+              <MdEmail className="icon" />
               <input
                 type="email"
-                name={'email'}
-                id={'email'}
+                name="email"
+                id="email"
                 value={email}
                 onChange={handleInputChange}
-                placeholder="Email"
+                placeholder="Enter Email"
                 className="input-field"
               />
-              <label htmlFor={'email'} className="input-label">
+              <label htmlFor="email" className="input-label">
                 Email Address
               </label>
               <span className="input-highlight"></span>
             </div>
 
+            {/* Password */}
             <div className="input-container">
-              <RiLockPasswordFill className="input-icon" />
+              <RiLockPasswordFill className="icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
-                name={'password'}
-                id={'password'}
+                name="password"
                 value={password}
                 onChange={handleInputChange}
-                placeholder="Password"
+                //onBlur={checkPasswordFormat}
+                placeholder="Enter Password"
                 className="input-field"
               />
-              <label htmlFor={'password'} className="input-label">
+              <label htmlFor="password" className="input-label">
                 Password
               </label>
               <span className="input-highlight"></span>
               <span onClick={displayPassword} className="password-display">
-                {showPassword ? (
-                  <AiFillEyeInvisible className="icon" />
-                ) : (
-                  <AiFillEye className="icon" />
-                )}
+                {showPassword ? <AiFillEyeInvisible /> : <HiOutlineEye />}
               </span>
             </div>
 
@@ -186,6 +179,8 @@ const Register = () => {
           Already have an account?
           <NavLink to="/login"> Log In </NavLink>
         </p>
+
+        {error && <p className="error"> {error} </p>}
       </section>
     </main>
   );

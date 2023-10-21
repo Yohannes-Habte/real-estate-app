@@ -5,12 +5,11 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import cookieParser from 'cookie-parser';
 
-
 // Router Routes
+import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
-import globalErrorHandler from './middleware/globalErrorHandler.js';
 import houseRouter from './routes/houseRoutes.js';
-
+import globalErrorHandler from './middleware/globalErrorHandler.js';
 
 // Express App
 const app = express();
@@ -41,18 +40,20 @@ mongoose
     console.log(err);
   });
 
-  app.get("/yes", (req, res) => {
-    res.send("It is done mane")
-  })
+app.get('/yes', (req, res) => {
+  res.send('It is done mane');
+});
 
 // End points
-app.use("/api/users", userRouter)
-app.use("/api/houses", houseRouter)
+app.use('/api/auths', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/houses', houseRouter);
 
 // Global error handler
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
+
 
 // Listner
 app.listen(PORT, () => {
-  console.log(`The server started on port ${PORT}`.green.bold)
-})
+  console.log(`The server started on port ${PORT}`.green.bold);
+});

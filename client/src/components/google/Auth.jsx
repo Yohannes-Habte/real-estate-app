@@ -27,7 +27,7 @@ const Auth = ({ login, signup }) => {
         photo: result.user.photoURL,
       };
       const { data } = await axios.post(
-        'http://localhost:5000/api/users/google',
+        'http://localhost:5000/api/auths/google',
         userData
       );
 

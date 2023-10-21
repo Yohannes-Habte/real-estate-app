@@ -12,8 +12,11 @@ import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Register from './views/registerPage/Register';
 import Profile from './views/profilePage/Profile';
 import Houses from './views/housesPage/Houses';
+import axios from 'axios';
 
 const App = () => {
+  axios.defaults.withCredentials = true;
+
   return (
     <div>
       <Router>

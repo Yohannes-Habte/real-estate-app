@@ -49,6 +49,7 @@ const Houses = () => {
   const [uploading, setUploading] = useState(false);
   const [formEroor, setFormError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [display, setDisplay] = useState(false);
 
   console.log(formData);
 
@@ -156,6 +157,14 @@ const Houses = () => {
   };
 
   //==============================================================================
+  // Display discount price input
+  //==============================================================================
+
+  const discountPrice = (e) => {
+    setDisplay(e.target.checked);
+  };
+
+  //==============================================================================
   // Handle submit
   //==============================================================================
   const handleSubmit = async (e) => {
@@ -182,7 +191,7 @@ const Houses = () => {
       );
       setLoading(false);
 
-      navigate(`/houses/${data._id}`)
+      navigate(`/houses/${data._id}`);
     } catch (error) {
       setFormError(error.message);
       setLoading(false);
@@ -195,91 +204,248 @@ const Houses = () => {
         <h1 className="houses-title">Create a House</h1>
 
         <form onSubmit={handleSubmit} action="" className="form">
-          {/* All inputs except checkbox inputs  */}
-          <div className="wrapper-except-checkbox">
-            {/* Name */}
-            <div className="input-container">
-              <FaHouseUser className="input-icon" />
-              <input
-                type="text"
-                required
-                name={'name'}
-                id="name"
-                onChange={handleChange}
-                value={formData.name}
-                placeholder="Name"
-                className="input-field"
-              />
+          {/* Input container for images */}
+          <article className="house-image-details">
+            <h2 className="subTitle">First Upload the Photos of the House</h2>
+            <div className="image-wrapper">
+              {/* Image input  */}
+              <div className="file-container">
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  multiple
+                  name="images"
+                  id="images"
+                  onChange={(e) => setFiles(e.target.files)}
+                  className="image-field"
+                />
+                <label htmlFor="images" className="file-label">
+                  <FaCloudUploadAlt className="label-icon" />
 
-              <label htmlFor={'name'} className="input-label">
-                House Name
-              </label>
-              <span className="input-highlight"></span>
+                  {formData.images.length > 0 && formData.images.length ? (
+                    <span className="uploaded-images">
+                      {formData.images.length} images has been selected
+                    </span>
+                  ) : (
+                    <span className="uploaded-images">
+                      Upload maximum 6 photos
+                    </span>
+                  )}
+                </label>
+              </div>
+
+              {/* Image upload button */}
+              <button
+                type="button"
+                disabled={uploading}
+                onClick={handleImagesSubmit}
+                className="button-upload"
+              >
+                {uploading ? 'Uploading...' : 'Upload Images'}
+              </button>
             </div>
+          </article>
 
-            {/* Bedrooms */}
-            <div className="input-container">
-              <FaBed className="input-icon" />
-              <input
-                type="number"
-                required
-                name={'bedRooms'}
-                id={'bedRooms'}
-                onChange={handleChange}
-                value={formData.bedRooms}
-                placeholder="Number of Bedrooms"
-                className="input-field"
-              />
+          {/* Input container for name, bedrooms, bathrooms, regular price, description and address */}
+          <article className="house-details">
+            <h2 className="subTitle">Fill in all details</h2>
+            <div className="wrapper-house-detail-inputs">
+              {/* Name */}
+              <div className="input-container">
+                <FaHouseUser className="input-icon" />
+                <input
+                  type="text"
+                  required
+                  name={'name'}
+                  id="name"
+                  onChange={handleChange}
+                  value={formData.name}
+                  placeholder="Name"
+                  className="input-field"
+                />
 
-              <label htmlFor={'bedRooms'} className="input-label">
-                Number of BedRooms
-              </label>
-              <span className="input-highlight"></span>
+                <label htmlFor={'name'} className="input-label">
+                  House Name
+                </label>
+                <span className="input-highlight"></span>
+              </div>
+
+              {/* Bedrooms */}
+              <div className="input-container">
+                <FaBed className="input-icon" />
+                <input
+                  type="number"
+                  required
+                  name={'bedRooms'}
+                  id={'bedRooms'}
+                  onChange={handleChange}
+                  value={formData.bedRooms}
+                  placeholder="Number of Bedrooms"
+                  className="input-field"
+                />
+
+                <label htmlFor={'bedRooms'} className="input-label">
+                  Number of BedRooms
+                </label>
+                <span className="input-highlight"></span>
+              </div>
+
+              {/* Bathrooms */}
+              <div className="input-container">
+                <MdBathroom className="input-icon" />
+                <input
+                  type="number"
+                  required
+                  name={'bathRooms'}
+                  id={'bathRooms'}
+                  onChange={handleChange}
+                  value={formData.bathRooms}
+                  placeholder="Number of Bathrooms"
+                  className="input-field"
+                />
+
+                <label htmlFor={'bathRooms'} className="input-label">
+                  Number of Bathrooms
+                </label>
+                <span className="input-highlight"></span>
+              </div>
+
+              {/* Regular Price */}
+              <div className="input-container">
+                <MdPriceChange className="input-icon" />
+                <input
+                  type="number"
+                  required
+                  name={'regularPrice'}
+                  id={'regularPrice'}
+                  min={'150'}
+                  max={'20000000'}
+                  onChange={handleChange}
+                  value={formData.regularPrice}
+                  placeholder="Regular Price Per Month"
+                  className="input-field"
+                />
+
+                <label htmlFor={'regularPrice'} className="input-label">
+                  Regular Price Per Month
+                </label>
+                <span className="input-highlight"></span>
+              </div>
+
+              {/* Address  */}
+              <div className="input-container">
+                <FaAddressCard className="input-icon" />
+                <input
+                  type="text"
+                  required
+                  name={'address'}
+                  id={'address'}
+                  onChange={handleChange}
+                  value={formData.address}
+                  placeholder="Address"
+                  className="input-field"
+                />
+
+                <label htmlFor={'address'} className="input-label">
+                  Address
+                </label>
+                <span className="input-highlight"></span>
+              </div>
+
+              {/* Description  */}
+              <div className="input-container">
+                <FiFileText className="input-icon" />
+                <textarea
+                  type="text"
+                  required
+                  name={'description'}
+                  id={'description'}
+                  onChange={handleChange}
+                  value={formData.description}
+                  placeholder="Description"
+                  className="input-field"
+                />
+
+                <label htmlFor={'description'} className="input-label">
+                  Description
+                </label>
+                <span className="input-highlight"></span>
+              </div>
             </div>
+          </article>
 
-            {/* Bathrooms */}
-            <div className="input-container">
-              <MdBathroom className="input-icon" />
-              <input
-                type="number"
-                required
-                name={'bathRooms'}
-                id={'bathRooms'}
-                onChange={handleChange}
-                value={formData.bathRooms}
-                placeholder="Number of Bathrooms"
-                className="input-field"
-              />
+          {/* Checkboxes */}
+          <article className="house-checkout-details">
+            <h2 className="subTitle">Check the box that describes the house</h2>
+            {/* Checkboxes container */}
+            <div className="check-input-container">
+              <div className="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  name="sale"
+                  id="sale"
+                  onChange={handleChange}
+                  checked={formData.type === 'sale'}
+                  className="check-box"
+                />
+                <span className="label">Sell</span>
+              </div>
 
-              <label htmlFor={'bathRooms'} className="input-label">
-                Number of Bathrooms
-              </label>
-              <span className="input-highlight"></span>
+              <div className="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  name="rent"
+                  id="rent"
+                  onChange={handleChange}
+                  checked={formData.type === 'rent'}
+                  className="check-box"
+                />
+                <span className="label">Rent</span>
+              </div>
+
+              <div className="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  name="parking"
+                  id="parking"
+                  onChange={handleChange}
+                  checked={formData.parking}
+                  className="check-box"
+                />
+                <span className="label">Parking</span>
+              </div>
+
+              <div className="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  name="furnished"
+                  id="furnished"
+                  onChange={handleChange}
+                  checked={formData.furnished}
+                  className="check-box"
+                />
+                <span className="label">Furnished</span>
+              </div>
+
+              <div className="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  name="offer"
+                  id="offer"
+                  onChange={handleChange}
+                  checked={formData.offer}
+                  className="check-box"
+                />
+                <span className="label">Offer</span>
+              </div>
             </div>
+          </article>
 
-            {/* Regular Price */}
-            <div className="input-container">
-              <MdPriceChange className="input-icon" />
-              <input
-                type="number"
-                required
-                name={'regularPrice'}
-                id={'regularPrice'}
-                min={'150'}
-                max={'20000000'}
-                onChange={handleChange}
-                value={formData.regularPrice}
-                placeholder="Regular Price Per Month"
-                className="input-field"
-              />
+          {/* Input conatiner for descounted Price */}
 
-              <label htmlFor={'regularPrice'} className="input-label">
-                Regular Price Per Month
-              </label>
-              <span className="input-highlight"></span>
-            </div>
-
-            {/* Descounted Price */}
+          <article className="house-discountedPrice-details">
+            <h2 className="subTitle">Click on the offer to get the discount</h2>
             <div className="input-container">
               <MdPriceChange className="input-icon" />
               <input
@@ -300,148 +466,13 @@ const Houses = () => {
               </label>
               <span className="input-highlight"></span>
             </div>
+          </article>
 
-            {/* Address  */}
-            <div className="input-container">
-              <FaAddressCard className="input-icon" />
-              <input
-                type="text"
-                required
-                name={'address'}
-                id={'address'}
-                onChange={handleChange}
-                value={formData.address}
-                placeholder="Address"
-                className="input-field"
-              />
-
-              <label htmlFor={'address'} className="input-label">
-                Address
-              </label>
-              <span className="input-highlight"></span>
-            </div>
-
-            {/* Description  */}
-            <div className="input-container">
-              <FiFileText className="input-icon" />
-              <textarea
-                type="text"
-                required
-                name={'description'}
-                id={'description'}
-                onChange={handleChange}
-                value={formData.description}
-                placeholder="Description"
-                className="input-field"
-              />
-
-              <label htmlFor={'description'} className="input-label">
-                Description
-              </label>
-              <span className="input-highlight"></span>
-            </div>
-
-            {/* Image input  */}
-            <div className="file-container">
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                multiple
-                name="images"
-                id="images"
-                onChange={(e) => setFiles(e.target.files)}
-                className="image-field"
-              />
-              <label htmlFor="images" className="file-label">
-                <FaCloudUploadAlt className="label-icon" />
-                <span className="upload-images">Upload maximum 6 photos.</span>
-                {formData.images.length > 0 && formData.images.length ? (
-                  <span className="uploaded-images">
-                    {formData.images.length} images has been selected
-                  </span>
-                ) : (
-                  <span className="uploaded-images">
-                    Choose files to upload
-                  </span>
-                )}
-              </label>
-            </div>
-          </div>
-
-          {/* Checkbox container */}
-          <div className="check-input-container">
-            <div className="checkbox-wrapper">
-              <input
-                type="checkbox"
-                name="sale"
-                id="sale"
-                onChange={handleChange}
-                checked={formData.type === 'sale'}
-                className="check-box"
-              />
-              <span className="label">Sell</span>
-            </div>
-
-            <div className="checkbox-wrapper">
-              <input
-                type="checkbox"
-                name="rent"
-                id="rent"
-                onChange={handleChange}
-                checked={formData.type === 'rent'}
-                className="check-box"
-              />
-              <span className="label">Rent</span>
-            </div>
-
-            <div className="checkbox-wrapper">
-              <input
-                type="checkbox"
-                name="parking"
-                id="parking"
-                onChange={handleChange}
-                checked={formData.parking}
-                className="check-box"
-              />
-              <span className="label">Parking</span>
-            </div>
-
-            <div className="checkbox-wrapper">
-              <input
-                type="checkbox"
-                name="furnished"
-                id="furnished"
-                onChange={handleChange}
-                checked={formData.furnished}
-                className="check-box"
-              />
-              <span className="label">Furnished</span>
-            </div>
-
-            <div className="checkbox-wrapper">
-              <input
-                type="checkbox"
-                name="offer"
-                id="offer"
-                onChange={handleChange}
-                checked={formData.offer}
-                className="check-box"
-              />
-              <span className="label">Offer</span>
-            </div>
-          </div>
-
-          {/* Buttos */}
+          {/* Button */}
           <button
-            type="button"
-            disabled={uploading}
-            onClick={handleImagesSubmit}
-            className="button-upload"
+            disabled={loading || uploading}
+            className="button-house-details"
           >
-            {uploading ? 'Uploading...' : 'Upload Selected Images'}
-          </button>
-          <button disabled={loading || uploading} className="button-house-details">
             {loading ? 'Loading...' : 'Send House Details'}
           </button>
 
