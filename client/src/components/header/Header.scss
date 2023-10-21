@@ -27,7 +27,7 @@
 
       .input-field {
         @include inputField;
-        @include shadow;
+        @include shadow1;
         background-color: $search-bg;
 
         &::placeholder {

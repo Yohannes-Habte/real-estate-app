@@ -9,7 +9,7 @@
   .login-container {
     width: $laptop;
     margin: 1rem auto;
-    @include shadow;
+    @include shadow1;
 
     .login-title {
       @include title;
@@ -151,7 +151,7 @@
     .login-container {
       width: 80%;
       margin: auto;
-      @include shadow;
+      @include shadow1;
 
       .login-title {
         font-size: 2.5rem;
@@ -196,7 +196,7 @@
     .login-container {
       width: 50%;
       margin: auto;
-      @include shadow;
+      @include shadow1;
 
       .login-title {
         @include title;

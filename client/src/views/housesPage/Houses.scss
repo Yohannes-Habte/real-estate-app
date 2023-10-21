@@ -19,7 +19,7 @@
       margin: 1rem auto;
       display: flex;
       flex-direction: column;
-      @include shadow;
+      @include shadow1;
 
       gap: 1rem;
 
@@ -134,6 +134,7 @@
       .check-input-container {
         display: flex;
         justify-content: space-around;
+        @include shadow3;
 
         .checkbox-wrapper {
           display: flex;
@@ -147,15 +148,75 @@
         }
       }
 
+      .horizotal-line {
+        height: 2px;
+        background-color: $field-bg;
+        margin-top: 1rem;
+      }
+
       // Upload and listing buttons styling
-      .upload-btn {
+      .button-upload {
         @include button3;
       }
 
-      .listing-btn {
+      .button-house-details {
         @include button1;
         text-transform: uppercase;
+        padding: 1rem 0;
       }
+    }
+
+    // Displaying uploaed images
+    .display-uploaded-images {
+      width: $laptop;
+      margin: auto;
+      @include shadow3;
+
+      .subTitle {
+        @include subTitle;
+      }
+
+      .uploaded-images {
+       display: flex;
+       flex-direction: row;
+       flex-wrap: wrap;
+       gap: 1rem;
+
+        .uploaded-image {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          @include shadow3;
+          .image {
+            width: 10rem;
+            height: 10rem;
+            border-radius: $radius;
+            object-fit: cover;
+          }
+
+          .delete-btn {
+            position: absolute;
+            right: 0.2rem;
+            top: 0.2rem;
+            border: none;
+            font-weight: $aafw;
+            cursor: pointer;
+            color: #afaaaa;
+
+            &:hover {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+
+    .upload-image-error {
+      @include paragraph;
+      color: $red;
     }
   }
 }

@@ -237,7 +237,7 @@
     .register-container {
       width: 50%;
       margin: auto;
-      @include shadow;
+      @include shadow1;
 
       .title {
         @include title;

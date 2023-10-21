@@ -1,10 +1,10 @@
 import exress from 'express';
 import { createHouse } from '../controllers/houseController.js';
-import { adminAuth } from '../middleware/auth.js';
+import { userAuth } from '../middleware/auth.js';
 
 const houseRouter = exress.Router();
 
 // Houre routes
-houseRouter.post('/create', adminAuth, createHouse);
+houseRouter.post('/create', createHouse );
 
 export default houseRouter;

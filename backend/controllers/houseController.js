@@ -1,4 +1,5 @@
 import House from '../models/houseModel.js';
+import createError from 'http-errors';
 
 // =====================================================================
 // Create a new house
