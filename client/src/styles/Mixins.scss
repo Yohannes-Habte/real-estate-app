@@ -252,18 +252,35 @@
   padding: $textPadding;
 }
 
+
+@mixin edit {
+  color: $green;
+  cursor: pointer;
+  font-size: $afs;
+  font-weight: $aafw;
+  border: 1px solid $green;
+  padding: 0.5rem;
+  border-radius: $radius;
+  background-color: $editbg-bg;
+
+  &:hover {
+    background-color: $edit-hover;
+    color: $blue;
+  }
+}
+
 @mixin delete {
-  color: $red;
   cursor: pointer;
   font-size: $afs;
   font-weight: $aafw;
   border: 1px solid $tomato;
   padding: 0.5rem;
   border-radius: $radius;
+  background-color: $delete-bg;
 
   &:hover {
     background-color: $delete-hover;
-    color: black;
+    color: $red;
   }
 }
 

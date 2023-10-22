@@ -1,3 +1,4 @@
+import House from '../models/houseModel.js';
 import User from '../models/userModel.js';
 import createError from 'http-errors';
 
@@ -85,10 +86,9 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
-
-// =====================================================================
-// Get all houses created by a particular user
-// =====================================================================
+// =============================================================================
+// Get all houses created by a particular user or belong for a particular user
+// =============================================================================
 
 export const getUserHouses = async (req, res, next) => {
   try {
@@ -105,5 +105,29 @@ export const getUserHouses = async (req, res, next) => {
         'The houses that you created could not be accessed. Please try again!'
       )
     );
+  }
+};
+
+// =====================================================================
+// Delet Your house
+// =====================================================================
+
+export const deleteHouse = async (req, res, next) => {
+  const house = await House.findById(req.params.id);
+  if (!house) {
+    return next(createError(404, 'House not found!'));
+  }
+
+  // if (req.user._id !== house.userRef) {
+  //   return next(
+  //     createError(403, 'You are only authorized to delete your own houses!')
+  //   );
+  // }
+
+  try {
+    await House.findByIdAndDelete(req.params.id);
+    res.status(200).json(`${house.name} has been successfully deleted!`);
+  } catch (error) {
+    next(error);
   }
 };

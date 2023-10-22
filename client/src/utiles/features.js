@@ -22,3 +22,4 @@ export const cloud_URL = `https://api.cloudinary.com/v1_1/${cloud_name}/image/up
 
 // Backend URL
 export const url = process.env.REACT_APP_BACKEND_URL;
+

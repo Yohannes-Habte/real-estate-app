@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  deleteHouse,
   deleteUser,
   getUser,
   getUserHouses,
@@ -16,5 +17,6 @@ userRouter.get('/:id', userAuth, getUser);
 userRouter.delete('/delete/:id', userAuth, deleteUser);
 userRouter.get('/', adminAuth, getUsers);
 userRouter.get('/user/:id/houses', getUserHouses); // The id represents the user id
+userRouter.delete('/houses/delete/:id', deleteHouse); 
 
 export default userRouter;

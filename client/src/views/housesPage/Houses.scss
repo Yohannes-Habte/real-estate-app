@@ -38,7 +38,7 @@
           .file-container {
             position: relative;
             width: 80%;
-            border-radius: $radius;
+           
 
             .image-field {
               @include inputField;
@@ -54,6 +54,7 @@
               flex-direction: row;
               align-items: center;
               border: 1px solid $field-bg;
+              border-radius: $radius;
               gap: 1rem;
               padding: 1rem;
               cursor: pointer;

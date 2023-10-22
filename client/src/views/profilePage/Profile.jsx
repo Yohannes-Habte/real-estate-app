@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { AiFillEyeInvisible } from 'react-icons/ai';
+import { AiFillEyeInvisible, AiFillSwitcher } from 'react-icons/ai';
 import { useRef } from 'react';
 import {
   getDownloadURL,
@@ -47,6 +47,8 @@ const Profile = () => {
   const [image, setImage] = useState(undefined);
   const [imagePercentageUpLoad, setImagePercentageUpLoad] = useState(0);
   const [imageUpLoadError, setImageUpLoadError] = useState(false);
+  const [houses, setHouses] = useState([]);
+  const [showHousesError, setShowHousesError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   // useRef for the user photo
@@ -156,6 +158,35 @@ const Profile = () => {
     }
   };
 
+  // Show all houses created by a particular user
+  const handleShowHouses = async () => {
+    try {
+      setShowHousesError(false);
+      const { data } = await axios.get(
+        `http://localhost:5000/api/users/user/${currentUser._id}/houses`
+      );
+      setHouses(data);
+    } catch (error) {
+      setShowHousesError(true);
+    }
+  };
+
+  // Show all houses created by a particular user
+  const handleHouseDelete = async (houseId) => {
+    try {
+      setShowHousesError(false);
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/users/houses/delete/${houseId}`
+      );
+      // if the delete is successful, update the houses data
+      setHouses((houseData) =>
+        houseData.filter((house) => house._id !== houseId)
+      );
+    } catch (error) {
+      setShowHousesError(true);
+    }
+  };
+
   // firebase storage
   /**
       allow read;
@@ -192,7 +223,6 @@ const Profile = () => {
         </figure>
 
         <form onSubmit={handleSubmit} action="" className="profile-form">
-          
           {/* Image input */}
           <div className="file-input-container">
             <input
@@ -263,12 +293,63 @@ const Profile = () => {
             </span>
           </div>
 
-          <button disabled={loading} className="register-button">
+          <button disabled={loading} className="update-button">
             {loading ? 'loading' : 'Update'}
           </button>
-          <Link to={'/houses'} className={'create-houses'}>
-            Create Houses
-          </Link>
+
+          {/* Create house or houses */}
+          <article className="creating-houses">
+            <h2 className="subTitle">Creating New House/s</h2>
+            <p className="paragraph">
+              To create a new house or houses, you need to click on the Create
+              Houses button at the bottom.
+            </p>
+            <Link to={'/houses'} className={'create-house-link'}>
+              Create Houses
+            </Link>
+          </article>
+
+          {/* List of created houses */}
+          <article className="list-of-created-houses">
+            <h2 className="subTitle"> List of Available Houses</h2>
+
+            <button
+              type="button"
+              onClick={handleShowHouses}
+              className="show-house-btn"
+            >
+              Show Houses
+            </button>
+            {houses &&
+              houses.length > 0 &&
+              houses.map((house) => {
+                return (
+                  <section className="house-desplay-wrapper">
+                    <figure className="house-image-container">
+                      <Link to={`/houses/${house._id}`}>
+                        <img
+                          className="house-image"
+                          src={house.images[0]}
+                          alt=""
+                        />
+                      </Link>
+                    </figure>
+                    <Link to={`/houses/${house._id}`}>
+                      <h3 className="subTitle"> {house.name} </h3>
+                    </Link>
+                    <button className="edit-btn">Edit</button>
+                    <button
+                      type="button"
+                      onClick={() => handleHouseDelete(house._id)}
+                      className="delte-btn"
+                    >
+                      Delete
+                    </button>
+                  </section>
+                );
+              })}
+            {showHousesError && <p> {showHousesError} </p>}
+          </article>
         </form>
 
         {/* Delete and Log out */}

@@ -18,14 +18,14 @@ export const userAuth = async (req, res, next) => {
     // Find user id
     const user = await User.findById(decodedToken.id);
 
-    if ((user && user.id === req.params.id) || user.role === 'admin') {
+    if (user && user.id === req.params.id) {
       req.user = user;
       next();
     } else {
       return next(createError(403, 'User is not authorized!'));
     }
   } catch (error) {
-    next(err);
+    next(error);
   }
 };
 
@@ -50,6 +50,6 @@ export const adminAuth = async (req, res, next) => {
       return next(createError(403, 'Unauthorized user!'));
     }
   } catch (error) {
-    next(err);
+    next(error);
   }
 };

@@ -1,14 +1,14 @@
 import User from '../models/userModel.js';
 import createError from 'http-errors';
-import generateToken from '../middleware/generateToken.js';
 import bcrypt from 'bcryptjs';
+import generateToken from '../middleware/generateToken.js';
 
 //===========================================================
 // Register a new user in the database
 //===========================================================
 
 export const registerUser = async (req, res, next) => {
-  const { username, email, password, image, role } = req.body;
+  const { username, email, password, image } = req.body;
 
   if (!username) {
     res.status(404);
@@ -37,7 +37,6 @@ export const registerUser = async (req, res, next) => {
         email: email,
         password: password,
         image: image,
-        role: role,
       });
 
       // Save the new user in the database

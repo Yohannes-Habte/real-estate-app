@@ -47,11 +47,9 @@ const Houses = () => {
   const [formData, setFormData] = useState(initialState);
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [formEroor, setFormError] = useState('');
+  const [formError, setFormError] = useState('');
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState(false);
-
-  console.log(formData);
 
   //==============================================================================
   // Handle upload photos
@@ -160,8 +158,14 @@ const Houses = () => {
   // Display discount price input
   //==============================================================================
 
-  const discountPrice = (e) => {
+  const offerChange = (e) => {
     setDisplay(e.target.checked);
+    if (e.target.id === 'offer') {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.checked,
+      });
+    }
   };
 
   //==============================================================================
@@ -245,6 +249,9 @@ const Houses = () => {
                 {uploading ? 'Uploading...' : 'Upload Images'}
               </button>
             </div>
+            {imageUploadError && (
+              <p className="upload-image-error">{imageUploadError}</p>
+            )}
           </article>
 
           {/* Input container for name, bedrooms, bathrooms, regular price, description and address */}
@@ -433,8 +440,8 @@ const Houses = () => {
                   type="checkbox"
                   name="offer"
                   id="offer"
-                  onChange={handleChange}
-                  checked={formData.offer}
+                  onChange={offerChange}
+                  value={formData.offer}
                   className="check-box"
                 />
                 <span className="label">Offer</span>
@@ -446,26 +453,28 @@ const Houses = () => {
 
           <article className="house-discountedPrice-details">
             <h2 className="subTitle">Click on the offer to get the discount</h2>
-            <div className="input-container">
-              <MdPriceChange className="input-icon" />
-              <input
-                type="number"
-                required
-                min={'0'}
-                max={'9000000'}
-                name={'discountedPrice'}
-                id={'discountedPrice'}
-                onChange={handleChange}
-                value={formData.discountedPrice}
-                placeholder="Discounted Price Per Month"
-                className="input-field"
-              />
+            {display && (
+              <div className="input-container">
+                <MdPriceChange className="input-icon" />
+                <input
+                  type="number"
+                  required
+                  min={'0'}
+                  max={'9000000'}
+                  name={'discountedPrice'}
+                  id={'discountedPrice'}
+                  onChange={handleChange}
+                  value={formData.discountedPrice}
+                  placeholder="Discounted Price Per Month"
+                  className="input-field"
+                />
 
-              <label htmlFor={'discountedPrice'} className="input-label">
-                Discounted Price Per Month
-              </label>
-              <span className="input-highlight"></span>
-            </div>
+                <label htmlFor={'discountedPrice'} className="input-label">
+                  Discounted Price Per Month
+                </label>
+                <span className="input-highlight"></span>
+              </div>
+            )}
           </article>
 
           {/* Button */}
@@ -476,7 +485,7 @@ const Houses = () => {
             {loading ? 'Loading...' : 'Send House Details'}
           </button>
 
-          {formEroor && <p className="upload-image-error">{formEroor}</p>}
+          {formError && <p className="upload-image-error">{formError}</p>}
         </form>
 
         {/* Display uploaded images on the browser */}
@@ -502,10 +511,6 @@ const Houses = () => {
               })}
           </div>
         </article>
-
-        {imageUploadError && (
-          <p className="upload-image-error">{imageUploadError}</p>
-        )}
       </section>
     </main>
   );

@@ -4,6 +4,7 @@
 .profile-page {
   width: 100%;
   min-height: 100vh;
+  position: relative;
 
   .profile-container {
     width: 70%;
@@ -114,26 +115,88 @@
         }
       }
 
-      .register-button {
-        @include button1;
+      .update-button {
         width: 100%;
+        @include button1;
         margin: 0 0 1rem 0;
+        align-self: flex-start;
       }
 
-      .create-houses {
-        @include button2;
+      // Create houses styling
+      .creating-houses {
         width: 100%;
-        margin: 0 0 1rem 0;
+        @include shadow3;
+        padding: 1rem 0 2.5rem 1rem;
+
+        .subTitle {
+          @include subTitle;
+        }
+
+        .paragraph {
+          @include paragraph;
+          margin-bottom: 1rem;
+        }
+
+        .create-house-link {
+          @include button3;
+        }
+      }
+
+      //List of created houses
+      .list-of-created-houses {
+        width: 100%;
+        @include shadow3;
+        position: relative;
+
+        .subTitle {
+          @include subTitle;
+        }
+
+        .show-house-btn {
+          @include button3;
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+        }
+        .house-desplay-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          @include shadow3;
+
+          .house-image-container {
+            .house-image {
+              width: 10rem;
+              border-radius: $radius;
+              object-fit: cover;
+            }
+          }
+
+          .subTitle {
+            @include subTitle;
+          }
+
+          .edit-btn {
+            @include edit;
+          }
+
+          .delte-btn {
+            @include delete;
+          }
+        }
       }
     }
 
+    // Delete and log out account styling
     .account-management {
-      width: 50%;
-      margin: auto;
+      width: $laptop;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      position: absolute;
+      top: 0;
+      left: 2.8rem;
 
       .delete {
         @include delete;
