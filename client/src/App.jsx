@@ -13,7 +13,7 @@ import Register from './views/registerPage/Register';
 import Profile from './views/profilePage/Profile';
 import Houses from './views/housesPage/Houses';
 import axios from 'axios';
-import SingleHouse from './views/housePage/SingleHouse';
+import UpdateHouse from './views/updatePage/UpdateHouse';
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -45,7 +45,7 @@ const App = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/houses" element={<Houses />} />
-            <Route path="/houses/:id" element={<SingleHouse />} />
+            <Route path="/houses/:id" element={<UpdateHouse />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

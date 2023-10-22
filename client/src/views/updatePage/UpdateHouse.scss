@@ -1,0 +1,289 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.houses-page {
+  width: 100%;
+  min-height: 100vh;
+  @include flexCenter;
+
+  .houses-container {
+    width: $laptop;
+    margin: 1rem auto;
+
+    .houses-title {
+      @include title;
+    }
+
+    .form {
+      width: $laptop;
+      margin: 1rem auto;
+      display: flex;
+      flex-direction: column;
+      @include shadow1;
+      gap: 1rem;
+
+      .subTitle {
+        @include subTitle;
+      }
+
+      // Image styling
+      .house-image-details {
+        display: flex;
+        flex-direction: column;
+
+        .image-wrapper {
+          display: flex;
+          gap: 1rem;
+
+          .file-container {
+            position: relative;
+            width: 80%;
+           
+
+            .image-field {
+              @include inputField;
+              display: none;
+              cursor: pointer;
+            }
+
+            .file-label {
+              display: block;
+              position: relative;
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              border: 1px solid $field-bg;
+              border-radius: $radius;
+              gap: 1rem;
+              padding: 1rem;
+              cursor: pointer;
+
+              &:hover {
+                color: $red;
+              }
+
+              .label-icon {
+                font-size: 1.6rem;
+              }
+
+              .upload-images {
+                color: $gray;
+
+                &:hover {
+                  color: $red;
+                }
+              }
+            }
+          }
+
+          .button-upload {
+            @include button3;
+          }
+        }
+      }
+
+      // House details styling
+      .house-details {
+        display: flex;
+        flex-direction: column;
+
+        .wrapper-house-detail-inputs{
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          column-gap: 1rem;
+          row-gap: 1rem;
+
+          .input-container {
+            position: relative;
+            @include inputContainer;
+  
+            .input-icon {
+              position: absolute;
+              top: 1rem;
+              left: 0.5rem;
+            }
+  
+            .input-field {
+              @include inputField;
+              padding-left: 2rem;
+            }
+  
+            .input-label {
+              position: absolute;
+              top: 0;
+              left: 1.5rem;
+              color: #cccccc00;
+              font-size: 1rem;
+              pointer-events: none;
+              transition: all 0.3s ease;
+            }
+  
+            .input-highlight {
+              position: absolute;
+              bottom: 0.5rem;
+              left: 0;
+              height: 2px;
+              width: 0;
+              background-color: $yellow;
+              transition: all 0.3s ease;
+            }
+  
+            .input-field:focus + .input-label {
+              top: 0;
+              font-size: 12px;
+              color: #81a3e6;
+            }
+  
+            .input-field:focus + .input-label + .input-highlight {
+              width: 100%;
+            }
+  
+            .icon {
+              position: absolute;
+              top: 1rem;
+              right: 0.5rem;
+              font-size: $afs;
+            }
+          }
+        }
+      }
+
+      // Check box styling
+      .house-checkout-details {
+        // Checkboxes styling
+        .check-input-container {
+          display: flex;
+          justify-content: space-between;
+          @include shadow3;
+
+          .checkbox-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: $checkbox;
+
+            .check-box {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
+        }
+      }
+
+      // Discount price styling
+      .house-discountedPrice-details {
+        .input-container {
+          position: relative;
+          @include inputContainer;
+
+          .input-icon {
+            position: absolute;
+            top: 1rem;
+            left: 0.5rem;
+          }
+
+          .input-field {
+            @include inputField;
+            padding-left: 2rem;
+          }
+
+          .input-label {
+            position: absolute;
+            top: 0;
+            left: 1.5rem;
+            color: #cccccc00;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+          }
+
+          .input-highlight {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background-color: $yellow;
+            transition: all 0.3s ease;
+          }
+
+          .input-field:focus + .input-label {
+            top: 0;
+            font-size: 12px;
+            color: #81a3e6;
+          }
+
+          .input-field:focus + .input-label + .input-highlight {
+            width: 100%;
+          }
+
+          .icon {
+            position: absolute;
+            top: 1rem;
+            right: 0.5rem;
+            font-size: $afs;
+          }
+        }
+      }
+
+      .button-house-details {
+        @include button1;
+        text-transform: uppercase;
+        padding: 1rem 0;
+      }
+    }
+
+    // Displaying uploaed images
+    .display-uploaded-images {
+      width: $laptop;
+      margin: auto;
+      @include shadow3;
+
+      .subTitle {
+        @include subTitle;
+      }
+
+      .uploaded-images {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .uploaded-image {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          @include shadow3;
+          .image {
+            width: 10rem;
+            height: 10rem;
+            border-radius: $radius;
+            object-fit: cover;
+          }
+
+          .delete-btn {
+            position: absolute;
+            right: 0.2rem;
+            top: 0.2rem;
+            border: none;
+            font-weight: $aafw;
+            cursor: pointer;
+            color: #afaaaa;
+
+            &:hover {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+
+    .upload-image-error {
+      @include paragraph;
+      color: $red;
+    }
+  }
+}

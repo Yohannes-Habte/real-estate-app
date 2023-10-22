@@ -324,7 +324,7 @@ const Profile = () => {
               houses.length > 0 &&
               houses.map((house) => {
                 return (
-                  <section className="house-desplay-wrapper">
+                  <section key={house._id} className="house-desplay-wrapper">
                     <figure className="house-image-container">
                       <Link to={`/houses/${house._id}`}>
                         <img
@@ -337,7 +337,9 @@ const Profile = () => {
                     <Link to={`/houses/${house._id}`}>
                       <h3 className="subTitle"> {house.name} </h3>
                     </Link>
-                    <button className="edit-btn">Edit</button>
+                    <Link to={`/houses/${house._id} `} className="edit-btn">
+                      Edit
+                    </Link>
                     <button
                       type="button"
                       onClick={() => handleHouseDelete(house._id)}
