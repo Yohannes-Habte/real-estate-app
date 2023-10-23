@@ -42,10 +42,15 @@ export const updateUser = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    res.status(200).json(user);
+    if (!user) {
+      return next(createError(404, 'User does not exist! Please try again!'));
+    }
+    const { password, ...rest } = user._doc;
+    res.status(200).json(rest);
   } catch (error) {
+    next(error);
     console.log(error);
-    next(createError(400, 'User could not be accessed. Please try again!'));
+    next(createError(500, 'Database could not be accessed. Please try again!'));
   }
 };
 

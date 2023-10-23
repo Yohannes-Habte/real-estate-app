@@ -1,5 +1,54 @@
 @import './Variables.scss';
 
+// General page 
+@mixin page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Laptop page container
+@mixin laptopPageContainer {
+  width: $laptop;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+// Tablet page container
+@mixin tabletPageContainer {
+  width: $laptop;
+  margin: 1rem auto;
+}
+
+// Mobile page container
+@mixin mobilePageContainer {
+  width: $laptop;
+  margin: 1rem auto;
+}
+
+// Page title
+@mixin title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $aafs;
+  font-weight: $aafw;
+  padding: $textPadding;
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+}
+
+@mixin subTitle {
+  font-size: $afs;
+  font-weight: $aafw;
+  padding: $textPadding;
+  margin: 0.5rem 0;
+}
+
+// Three variety of Shadows
 @mixin shadow1 {
   padding: 1rem;
   box-shadow: #43475545 0px 0px 0.25em, #5a7dbc0d 0px 0.25em 1em;
@@ -21,28 +70,43 @@
   line-height: 1.5rem;
 }
 
-@mixin googleButton {
-  width: 100%;
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
-  border: 1px solid $yellow;
-  font-weight: $aafs;
-  font-size: $afs;
-  border-radius: $radius;
-  cursor: pointer;
-  transition: 0.5s;
-
-  &:hover {
-    background-color: $button-hover;
-    color: $red;
-  }
-}
-
-// Form input and label
+// Form input and label as well as legend
 @mixin legend {
   font-size: $afs;
   font-weight: $aafw;
   padding: 0 1rem;
+}
+
+@mixin input {
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  font-size: $afs;
+  border: 1px solid $yellow;
+  border-radius: 2rem;
+  outline: none;
+
+  &:hover {
+    outline: 1px solid $yellow;
+  }
+}
+
+@mixin label {
+  font-size: $afs;
+  padding: 0.2rem 0;
+  font-weight: 500;
+}
+
+@mixin inputLabel {
+  margin-top: 0.5rem;
+  & input {
+    display: block;
+    @include input;
+  }
+
+  & label {
+    display: block;
+    @include label;
+  }
 }
 
 @mixin inputContainer {
@@ -62,6 +126,25 @@
   margin-bottom: 0.5rem;
   border-radius: $radius;
 }
+
+// Four types of buttons
+@mixin googleButton {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid $yellow;
+  font-weight: $aafs;
+  font-size: $afs;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: $button-hover;
+    color: $red;
+  }
+}
+
 @mixin button1 {
   margin: 1rem 0;
   padding: 0.5rem 1rem;
@@ -162,97 +245,7 @@
   }
 }
 
-@mixin title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: $aafs;
-  font-weight: $aafw;
-  padding: $textPadding;
-  margin: 0.5rem 0;
-  text-transform: uppercase;
-}
-
-@mixin subTitle {
-  font-size: $afs;
-  font-weight: $aafw;
-  padding: $textPadding;
-  margin: 0.5rem 0;
-}
-
-@mixin input {
-  width: 100%;
-  padding: 0.5rem 1.5rem;
-  font-size: $afs;
-  border: 1px solid $yellow;
-  border-radius: 2rem;
-  outline: none;
-
-  &:hover {
-    outline: 1px solid $yellow;
-  }
-}
-
-@mixin label {
-  font-size: $afs;
-  padding: 0.2rem 0;
-  font-weight: 500;
-}
-
-@mixin inputLabel {
-  margin-top: 0.5rem;
-  & input {
-    display: block;
-    @include input;
-  }
-
-  & label {
-    display: block;
-    @include label;
-  }
-}
-
-@mixin step {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  color: #090909;
-  padding: 0.7em 1.7em;
-  margin: 1rem 0;
-  font-size: 18px;
-  border-radius: 0.5em;
-  background: #ffffff;
-  border: 1px solid #e8e8e8;
-  transition: all 0.3s;
-  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-}
-
-@mixin search {
-  font-family: inherit;
-  font-size: inherit;
-  background-color: #f4f2f2;
-  border: none;
-  color: #646464;
-  padding: 0.7rem 1rem;
-  border-radius: 30px;
-  transition: all ease-in-out 0.5s;
-  margin-right: -2rem;
-}
-
-@mixin center {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin paragraph {
-  font-size: $afs;
-  line-height: 2rem;
-  padding: $textPadding;
-}
-
-
+// edit button
 @mixin edit {
   color: $green;
   cursor: pointer;
@@ -269,6 +262,7 @@
   }
 }
 
+// Delete button
 @mixin delete {
   cursor: pointer;
   font-size: $afs;
@@ -284,8 +278,45 @@
   }
 }
 
+// Search 
+@mixin search {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: #f4f2f2;
+  border: none;
+  color: #646464;
+  padding: 0.7rem 1rem;
+  border-radius: 30px;
+  transition: all ease-in-out 0.5s;
+  margin-right: -2rem;
+}
+
+// Paragraph
+@mixin paragraph {
+  font-size: $afs;
+  line-height: 2rem;
+  padding: $textPadding;
+}
+
+// Placing center
 @mixin flexCenter {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+// Steps
+@mixin step {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #090909;
+  padding: 0.7em 1.7em;
+  margin: 1rem 0;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
 }

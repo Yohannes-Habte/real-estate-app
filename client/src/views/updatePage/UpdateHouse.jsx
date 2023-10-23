@@ -199,7 +199,7 @@ const UpdateHouse = () => {
       );
       setLoading(false);
 
-      navigate(`/houses/${data._id}`);
+      navigate(`/houseList/${data._id}`);
     } catch (error) {
       setFormError(error.message);
       setLoading(false);

@@ -1,0 +1,21 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .subTitle {
+        @include subTitle;
+    }
+
+    .text-message {
+        @include inputField;
+    }
+
+    .contact-link {
+        @include button3;
+        
+    }
+}

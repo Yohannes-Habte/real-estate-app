@@ -1,0 +1,128 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.list-house-page {
+  @include page;
+  position: relative;
+
+  .list-house-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    .image-container {
+      height: 30rem;
+      z-index: 1;
+      .image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .title {
+      @include title;
+    }
+
+    .share {
+      position: fixed;
+      top: 15%;
+      right: 3%;
+      z-index: 999;
+      background-color: #ffffff;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      @include flexCenter;
+
+      .share-icon {
+        color: $green;
+        cursor: pointer;
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    .copy-paragraph {
+      @include paragraph;
+    }
+
+    //  Container of house list details
+    .house-list-details-wraper {
+      @include laptopPageContainer;
+
+      // Sub title
+      .subTitle {
+        @include subTitle;
+      }
+
+      // icons
+      .icon {
+        color: $green;
+        font-size: 1.6rem;
+      }
+
+      // address
+      .address {
+        @include paragraph;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
+      // House type and price
+      .house-type-price {
+        @include shadow3;
+
+        .subTitle {
+          @include subTitle;
+        }
+        .offer-paragraph {
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+
+          .regular-price {
+            text-decoration: line-through;
+            color: $tomato;
+            font-weight: $aafw;
+          }
+
+          .price-after-discount {
+            color: $blue;
+            font-weight: $aafw;
+          }
+        }
+      }
+
+      // description
+      .paragraph {
+        @include paragraph;
+        @include shadow3;
+      }
+
+      // unorder list items
+      .unorder-list-items {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+        padding: 0.5rem;
+        @include shadow3;
+
+        .list-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.5rem;
+        }
+      }
+
+      .house-list-btn {
+        @include button1;
+      }
+    }
+  }
+}

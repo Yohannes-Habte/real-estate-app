@@ -118,7 +118,6 @@ const Profile = () => {
       dispatch(updateUserSuccess(data));
       setSuccess(true);
       event.target.reset();
-      // navigate('/');
     } catch (err) {
       dispatch(updateUserFailure(err.message));
     }
@@ -326,7 +325,7 @@ const Profile = () => {
                 return (
                   <section key={house._id} className="house-desplay-wrapper">
                     <figure className="house-image-container">
-                      <Link to={`/houses/${house._id}`}>
+                      <Link to={`/houseList/${house._id}`}>
                         <img
                           className="house-image"
                           src={house.images[0]}
@@ -334,7 +333,7 @@ const Profile = () => {
                         />
                       </Link>
                     </figure>
-                    <Link to={`/houses/${house._id}`}>
+                    <Link to={`/houseList/${house._id}`}>
                       <h3 className="subTitle"> {house.name} </h3>
                     </Link>
                     <Link to={`/houses/${house._id} `} className="edit-btn">

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './views/homePage/Home';
 import About from './views/aboutPage/About';
-import Contact from './views/contactPage/Contact';
+import ContactPage from './views/contactPage/ContactPage';
 import Login from './views/loginPage/Login';
 import NotFound from './views/notFound/NotFound';
 import Header from './components/header/Header';
@@ -14,6 +14,8 @@ import Profile from './views/profilePage/Profile';
 import Houses from './views/housesPage/Houses';
 import axios from 'axios';
 import UpdateHouse from './views/updatePage/UpdateHouse';
+import HouseList from './views/houseListPage/HouseList';
+
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -38,9 +40,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/houseList/:id" element={<HouseList />} />
           {/* Profile & Houses pages are protected */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
