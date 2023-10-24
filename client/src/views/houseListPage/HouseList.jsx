@@ -118,7 +118,7 @@ const HouseList = () => {
                     ${houseList.regularPrice}
                   </span>
                   <span className="price-after-discount">
-                    ${houseList.regularPrice - houseList.discountedPrice} OFF
+                    ${houseList.regularPrice - houseList.discountedPrice}
                   </span>
                 </p>
               )}
@@ -159,10 +159,12 @@ const HouseList = () => {
 
             {/* Current logged in user and contact */}
 
-            {currentUser && (
+            {currentUser &&
+              houseList.userRef !== currentUser._id &&
+              !contact && (
                 <button
-                  className="house-list-btn"
                   onClick={() => setContact(true)}
+                  className="house-list-btn"
                 >
                   Contact landlord
                 </button>

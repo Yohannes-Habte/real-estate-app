@@ -56,14 +56,19 @@
       width: 100%;
     }
 
-    .search-icon {
+    .search-btn {
       position: absolute;
       right: 1rem;
-      font-size: $afs;
-      cursor: pointer;
+      border: none;
+      background-color: $search-bg;
 
-      &:hover {
-        color: $red;
+      .search-icon {
+        font-size: $afs;
+        cursor: pointer;
+
+        &:hover {
+          color: $red;
+        }
       }
     }
   }

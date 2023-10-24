@@ -1,0 +1,95 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.search-page {
+  width: 100%;
+  min-height: 100vh;
+
+  .search-page-container {
+    width: $laptop;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+
+    // Search item container
+    .search-item-wrapper {
+      width: 40%;
+      @include shadow3;
+      background-color: $form-bg;
+      max-height: fit-content;
+
+      .subTitle {
+        @include subTitle;
+        padding: 0 0 1rem 0;
+        font-size: 1.8rem;
+      }
+
+      .search-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .input-container {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.3rem;
+
+          .input-label {
+            width: 27%;
+            font-size: 1.2rem;
+            font-weight: $aafw;
+          }
+
+          .input-field {
+            @include inputField;
+            width: 70%;
+          }
+
+          .checkbox-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.3rem;
+            margin: 0 1.3rem 0 0;
+
+            .checkbox {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+
+            .rent-sale {
+              font-size: 1.2rem;
+            }
+          }
+
+          // select options
+
+          .select-options {
+            @include inputField;
+            width: 70%;
+          }
+        }
+
+        .search-button {
+          @include button3;
+        }
+      }
+    }
+
+    // Search item result container
+    .search-result-wrapper {
+      width: 60%;
+      @include shadow3;
+
+      .title {
+        @include title;
+      }
+    }
+  }
+}

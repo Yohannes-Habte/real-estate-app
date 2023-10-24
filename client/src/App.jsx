@@ -15,7 +15,7 @@ import Houses from './views/housesPage/Houses';
 import axios from 'axios';
 import UpdateHouse from './views/updatePage/UpdateHouse';
 import HouseList from './views/houseListPage/HouseList';
-
+import Search from './views/searchpage/Search';
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -43,6 +43,7 @@ const App = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/houseList/:id" element={<HouseList />} />
           {/* Profile & Houses pages are protected */}
           <Route element={<PrivateRoute />}>
