@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Search.scss';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import SearchResult from '../../components/searchResult/SearchResult';
 
 // Initial state
 const initialState = {
@@ -19,7 +20,7 @@ const Search = () => {
   // Local state variables
   const [searchFormData, setSearchFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+  const [showMoreHouses, setShowMoreHoues] = useState(false);
   const [houses, setHouses] = useState([]);
 
   console.log(houses);
@@ -64,16 +65,17 @@ const Search = () => {
 
     const fetchHouseData = async () => {
       setLoading(true);
-      setShowMore(false);
+      setShowMoreHoues(false);
       const searchQuery = urlParams.toString();
       const { data } = await axios.get(
         `http://localhost:5000/api/houses?${searchQuery}`
       );
 
-      if (data.length > 8) {
-        setShowMore(true);
+      // Condition to show more than nine houses
+      if (data.length >= 9) {
+        setShowMoreHoues(true);
       } else {
-        setShowMore(false);
+        setShowMoreHoues(false);
       }
       setHouses(data);
       setLoading(false);
@@ -139,15 +141,15 @@ const Search = () => {
     urlParams.set('order', order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
-  
   };
 
   // =============================================================================
   // Show more house, which is more than 9 houses
   // =============================================================================
-  const showMoreHouses = async () => {
-    const numberOfListings = houses.length;
-    const startIndex = numberOfListings;
+  const handleShowMoreHouses = async () => {
+    // First find the number of houses using length
+    const numberOfHouses = houses.length;
+    const startIndex = numberOfHouses;
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('startIndex', startIndex);
     const searchQuery = urlParams.toString();
@@ -156,8 +158,10 @@ const Search = () => {
     );
 
     if (data.length < 9) {
-      setShowMore(false);
+      setShowMoreHoues(false);
     }
+
+    // Since data is an array, to add the new house data to existing house data, you need to use array rather than object
     setHouses([...houses, ...data]);
   };
 
@@ -186,7 +190,7 @@ const Search = () => {
               />
             </div>
 
-            {/*  Search Type  */}
+            {/*  Service type */}
             <div className="input-container">
               <label className="input-label">Services:</label>
 
@@ -225,13 +229,6 @@ const Search = () => {
                 />
                 <span className="rent-sale"> Sale </span>
               </div>
-            </div>
-
-            {/*  Search Discount  */}
-            <div className="input-container">
-              <label htmlFor="offer" className="input-label">
-                Discounts:
-              </label>
 
               <div className="checkbox-container">
                 <input
@@ -299,6 +296,29 @@ const Search = () => {
         {/* Search item result container */}
         <article className="search-result-wrapper">
           <h1 className="title">Search Result</h1>
+          {!loading && houses.length === 0 && (
+            <p className="no-house-found">No House Found! </p>
+          )}
+
+          {loading && <p className="loader">Loading...</p>}
+          <div className="searched-houses-result">
+            {!loading &&
+              houses &&
+              houses.map((house) => (
+                <SearchResult key={house._id} house={house} />
+              ))}
+
+            {/* Show more than nine houses */}
+            {showMoreHouses && (
+              <button
+                type="button"
+                onClick={handleShowMoreHouses}
+                className="show-more-btn"
+              >
+                Show More
+              </button>
+            )}
+          </div>
         </article>
       </section>
     </main>

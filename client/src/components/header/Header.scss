@@ -47,9 +47,8 @@
     }
 
     .input-field:focus {
-      top: -5px;
-      font-size: 12px;
-      color: #81a3e6;
+      font-size: $afs;
+      font-weight: $afw;
     }
 
     .input-field:focus + .input-highlight {

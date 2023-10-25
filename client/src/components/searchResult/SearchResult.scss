@@ -1,0 +1,70 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.searched-house-result {
+  @include shadow3;
+
+  .house-link {
+    .image-container {
+      .image {
+        width: 20rem;
+        height: 15rem;
+        border-radius: $radius;
+        object-fit: cover;
+        transition: all 1s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .subTitle {
+      @include subTitle;
+      &:hover {
+        color: $red;
+      }
+    }
+
+    .address {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0 0.5rem;
+
+      &:hover {
+        color: $red;
+      }
+
+      .address-icon {
+        font-size: 1.2rem;
+        color: $green;
+      }
+    }
+
+    .paragraph {
+      font-size: 1rem;
+      padding: 0 0.5rem;
+
+      &:hover {
+        color: $red;
+      }
+    }
+
+    .price {
+      color: $blue;
+      padding: 0 0.5rem;
+    }
+
+    .bed-bath-rooms {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      font-weight: $aafw;
+      padding: 0 0.5rem;
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+}

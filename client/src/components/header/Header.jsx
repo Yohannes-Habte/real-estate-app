@@ -23,7 +23,7 @@ const Header = () => {
     // since some of the searchItems are numbers, you need to conver them in string
     const searchQuery = urlParams.toString();
 
-    // Finally, you need apply useNavigation hook to navigate based on the user search
+    // Finally, you need to apply useNavigation hook to navigate based on the user search
     navigate(`/search?${searchQuery}`);
   };
 
