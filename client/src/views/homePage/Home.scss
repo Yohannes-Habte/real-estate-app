@@ -1,0 +1,66 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+
+  .home-page-container {
+    width: $laptop;
+    margin: 1rem auto;
+    .home-title {
+      @include title;
+    }
+
+    .home-paragraph {
+      @include paragraph;
+
+      .link {
+        color: $blue;
+        font-weight: $aafw;
+        &:hover {
+          color: $red;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // offer house Swiper
+    .swiper-wrapper {
+      margin-top: 0.5rem;
+      .image-container {
+        .image {
+          width: 100%;
+          height: 30rem;
+          object-fit: cover;
+          border-radius: $radius;
+        }
+      }
+    }
+
+    // houses for rent and sale wrapper
+    .box-wrapper {
+      @include shadow3;
+
+      .subTitle {
+        @include subTitle;
+        font-size: $aafs;
+      }
+
+      .link {
+        font-size: $afs;
+        color: $blue;
+        text-decoration: underline;
+
+        &:hover {
+          color: $red;
+        }
+      }
+      .houses-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1rem;
+      }
+    }
+  }
+}

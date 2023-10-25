@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './HouseList.scss';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 //& Step 1: import Swiper JS and Swiper styles
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
@@ -62,7 +62,7 @@ const HouseList = () => {
 
       {houseList && !error && !loading && (
         <section className="list-house-container">
-          {/* Swiper */}
+          {/*   //& Step 3: Swiper */}
           <Swiper navigation>
             {houseList.images.map((url) => (
               <SwiperSlide key={url}>
@@ -125,7 +125,7 @@ const HouseList = () => {
             </article>
 
             {/* description */}
-            <p className="paragraph">
+            <p className="description">
               <span>Description - </span>
               {houseList.description}
             </p>
@@ -172,6 +172,13 @@ const HouseList = () => {
 
             {contact && <Contact houseList={houseList} />}
           </article>
+
+          <p className="paragraph">
+            Are you interested either to rend or buy? Click on{' '}
+            <Link to={'/search'} className="continue">
+              Continue
+            </Link>{' '}
+          </p>
         </section>
       )}
     </main>

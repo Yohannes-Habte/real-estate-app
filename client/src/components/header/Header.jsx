@@ -2,15 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import './Header.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  userLogoutFailure,
+  userLogoutStart,
+  userLogoutSuccess,
+} from '../../redux/user/userSlice';
+import axios from 'axios';
 
 const Header = () => {
   const navigate = useNavigate();
   // Find logged in user using useSelector from the react redux
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   // Local state variables
   const [searchItem, setSearchItem] = useState('');
+  const [open, setOpen] = useState(false);
 
   // Handle search submit
   const handleSubmit = (e) => {
@@ -35,6 +46,40 @@ const Header = () => {
       setSearchItem(searchTermFromUrl);
     }
   }, [window.location.search]);
+
+  // Delete user account
+  const handleDeleteAccount = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/users/delete/${currentUser._id}`
+      );
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  // Delete user account
+  const handleLogout = async () => {
+    try {
+      dispatch(userLogoutStart());
+      const { data } = await axios.get(
+        `http://localhost:5000/api/auths/logout`
+      );
+
+      if (data.success === false) {
+        dispatch(userLogoutFailure(data.message));
+      }
+      dispatch(userLogoutSuccess(data));
+    } catch (error) {
+      dispatch(userLogoutFailure(error.message));
+    }
+  };
 
   // Active NavLink styling
   const activeLink = ({ isActive }) => (isActive ? `active` : 'passive');
@@ -83,7 +128,23 @@ const Header = () => {
         </li>
         {currentUser ? (
           <figure className="image-container">
-            <img className="image" src={currentUser.image} alt={'Profile'} />
+            <img
+              onClick={() => setOpen(!open)}
+              className="image"
+              src={currentUser.image}
+              alt={'Profile'}
+            />
+            {open && (
+              <ul className="user-account">
+                <li onClick={handleLogout} className="logout">
+                  Log out
+                </li>
+
+                <li onClick={handleDeleteAccount} className="delete">
+                  Delete Account
+                </li>
+              </ul>
+            )}
           </figure>
         ) : (
           <li className="list-item">

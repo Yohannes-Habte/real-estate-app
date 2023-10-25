@@ -101,12 +101,46 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
 
       .image {
         width: 2rem;
         height: 2rem;
         border-radius: 50%;
         object-fit: cover;
+        cursor: pointer;
+      }
+
+      .user-account {
+        width: 200px;
+        height: fit-content;
+        position: absolute;
+        right: -5rem;
+        top: 3rem;
+        background-color: $header-bg;
+        border-radius: 0 0 $radius $radius;
+        padding: 1rem;
+
+        .logout {
+          width: 50%;
+          border-bottom: $gray;
+          padding: 0.5rem 0;
+          cursor: pointer;
+
+          &:hover {
+            color: $red;
+          }
+        }
+
+        .delete {
+          width: 70%;
+          cursor: pointer;
+          margin: 1rem 0;
+
+          &:hover {
+            color: $red;
+          }
+        }
       }
     }
   }

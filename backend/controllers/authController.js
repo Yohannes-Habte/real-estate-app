@@ -8,7 +8,7 @@ import generateToken from '../middleware/generateToken.js';
 //===========================================================
 
 export const registerUser = async (req, res, next) => {
-  const { username, email, password, image } = req.body;
+  const { username, email, password, agreed, image } = req.body;
 
   if (!username) {
     res.status(404);
@@ -36,6 +36,7 @@ export const registerUser = async (req, res, next) => {
         username: username,
         email: email,
         password: password,
+        agreed: agreed,
         image: image,
       });
 

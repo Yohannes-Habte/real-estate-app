@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { AiFillEyeInvisible, AiFillSwitcher } from 'react-icons/ai';
+import { AiFillEyeInvisible } from 'react-icons/ai';
 import { useRef } from 'react';
 import {
   getDownloadURL,
@@ -16,15 +16,9 @@ import {
 } from 'firebase/storage';
 import { app } from '../../firebase';
 import {
-  deleteUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
-  userLogoutFailure,
-  userLogoutStart,
-  userLogoutSuccess,
 } from '../../redux/user/userSlice';
 import { HiOutlineEye } from 'react-icons/hi';
 
@@ -120,40 +114,6 @@ const Profile = () => {
       event.target.reset();
     } catch (err) {
       dispatch(updateUserFailure(err.message));
-    }
-  };
-
-  // Delete user account
-  const handleDelete = async () => {
-    try {
-      dispatch(deleteUserStart());
-      const { data } = await axios.delete(
-        `http://localhost:5000/api/users/delete/${currentUser._id}`
-      );
-
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-      }
-      dispatch(deleteUserSuccess(data));
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message));
-    }
-  };
-
-  // Delete user account
-  const handleLogout = async () => {
-    try {
-      dispatch(userLogoutStart());
-      const { data } = await axios.get(
-        `http://localhost:5000/api/auths/logout`
-      );
-
-      if (data.success === false) {
-        dispatch(userLogoutFailure(data.message));
-      }
-      dispatch(userLogoutSuccess(data));
-    } catch (error) {
-      dispatch(userLogoutFailure(error.message));
     }
   };
 
@@ -353,15 +313,6 @@ const Profile = () => {
           </article>
         </form>
 
-        {/* Delete and Log out */}
-        <div className="account-management">
-          <span onClick={handleDelete} className="delete">
-            Delete Account
-          </span>
-          <span onClick={handleLogout} className="sign-out">
-            Sign Out
-          </span>
-        </div>
         <p className="error"> {error && error} </p>
         <p className="success">
           {success && 'User data is updated successfully!'}{' '}

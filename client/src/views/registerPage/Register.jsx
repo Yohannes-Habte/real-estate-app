@@ -16,6 +16,7 @@ const initialSate = {
   username: '',
   email: '',
   password: '',
+  agreed: false,
 };
 const Register = () => {
   const navigate = useNavigate();
@@ -24,9 +25,11 @@ const Register = () => {
   const [formData, setFormData] = useState({ initialSate });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Destructuring the initial variables
-  const { username, email, password } = formData;
+  const { username, email, password, agreed } = formData;
 
   // Input change handle function
   const handleInputChange = (e) => {
@@ -34,10 +37,12 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [agree, setAgree] = useState(false);
-  const [agreeChanged, setAgreeChanged] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // Handle change for the agree state variable
+  const onChange = (e) => {
+    if (e.target.name === 'agreed') {
+      setFormData({ ...formData, [e.target.name]: e.target.checked });
+    }
+  };
 
   // Function to show/hide password
   const displayPassword = () => {
@@ -47,12 +52,6 @@ const Register = () => {
   // Function that display and hide the fonfirm password
   const displayConfirmPassword = () => {
     setShowConfirmPassword((prevState) => !prevState);
-  };
-
-  // Function to reset all the state variables
-  const reset = () => {
-    setAgree(false);
-    setAgreeChanged(false);
   };
 
   // Function to register the user
@@ -84,9 +83,8 @@ const Register = () => {
       }
       setLoading(false);
       setError(null);
-
+      event.target.reset();
       navigate('/login');
-      reset();
     } catch (err) {
       console.log(err);
       setError(error.message);
@@ -160,7 +158,10 @@ const Register = () => {
             <div className="register-consent">
               <input
                 type="checkbox"
-                name="agree"
+                name="agreed"
+                id="agreed"
+                checked={agreed}
+                onChange={onChange}
                 className="register-consent-input"
               />
               <span className="accept">I accept</span>

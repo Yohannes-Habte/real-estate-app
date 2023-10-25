@@ -8,6 +8,7 @@ const userSchema = new Schema(
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    agreed: {type: Boolean, required: true},
     image: { type: String, default: 'https://i.ibb.co/4pDNDk1/avatar.png' },
     role: { type: String, default: 'customer', enum: ['customer', 'admin'] },
   },

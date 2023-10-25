@@ -51,7 +51,9 @@
 
     //  Container of house list details
     .house-list-details-wraper {
-      @include laptopPageContainer;
+      width: $laptop;
+      margin: 1rem auto;
+      @include shadow3;
 
       // Sub title
       .subTitle {
@@ -74,7 +76,6 @@
 
       // House type and price
       .house-type-price {
-        @include shadow3;
 
         .subTitle {
           @include subTitle;
@@ -98,9 +99,9 @@
       }
 
       // description
-      .paragraph {
+      .description {
         @include paragraph;
-        @include shadow3;
+
       }
 
       // unorder list items
@@ -110,7 +111,6 @@
         align-items: center;
         gap: 3rem;
         padding: 0.5rem;
-        @include shadow3;
 
         .list-item {
           display: flex;
@@ -121,6 +121,17 @@
       }
 
       .house-list-btn {
+        @include button1;
+      }
+    }
+
+    // Continue to rent or buy
+    .paragraph {
+      width: $laptop;
+      margin: 1rem auto;
+      @include paragraph;
+
+      .continue {
         @include button1;
       }
     }

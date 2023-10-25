@@ -1,0 +1,103 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.house-details-container {
+  margin-top: 0.5rem;
+  // House image
+  .image-container {
+    .image {
+      width: 24rem;
+      height: 16rem;
+      object-fit: cover;
+      border-radius: $radius;
+    }
+  }
+
+  // House details
+  .house-details {
+    @include shadow3;
+
+    // House name and discount
+    .house-name {
+      font-size: $aafs;
+
+      .link {
+        text-decoration: none;
+        color: #000000;
+      }
+    }
+
+    // icons
+    .icon {
+      color: $green;
+      font-size: 1.3rem;
+    }
+
+    // address
+    .address-type {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+
+      .address {
+        display: flex;
+        gap: 0.5rem;
+        flex: 2;
+      }
+
+      .type {
+        flex: 1;
+        width: 20%;
+        @include googleButton;
+
+        .link {
+          text-decoration: none;
+        }
+      }
+    }
+
+    // House Price
+    .offer-paragraph {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .regular-price {
+        text-decoration: line-through;
+        color: $tomato;
+        font-weight: $aafw;
+      }
+
+      .price-after-discount {
+        color: $blue;
+        font-weight: $aafw;
+      }
+    }
+
+    // description
+    .description {
+      @include paragraph;
+    }
+
+    // unorder list items
+    .unorder-list-items {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+
+      .list-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.2rem;
+        font-size: 0.9rem;
+
+        .list-icon {
+          color: $green;
+        }
+      }
+    }
+  }
+}
