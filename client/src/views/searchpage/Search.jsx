@@ -3,6 +3,8 @@ import './Search.scss';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchResult from '../../components/searchResult/SearchResult';
+import { Helmet } from 'react-helmet-async';
+import ButtonSpinner from '../../components/loader/ButtonSpinner';
 
 // Initial state
 const initialState = {
@@ -167,6 +169,9 @@ const Search = () => {
 
   return (
     <main className="search-page">
+      <Helmet>
+        <title>Search</title>
+      </Helmet>
       <section className="search-page-container">
         {/* Search item container */}
         <article className="search-item-wrapper">
@@ -315,7 +320,7 @@ const Search = () => {
                 onClick={handleShowMoreHouses}
                 className="show-more-btn"
               >
-                Show More
+                {loading ? <ButtonSpinner /> : 'Show More'}
               </button>
             )}
           </div>

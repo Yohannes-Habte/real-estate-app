@@ -16,6 +16,8 @@ import {
   signInFailure,
 } from '../../redux/user/userSlice';
 import Auth from '../../components/google/Auth';
+import { Helmet } from 'react-helmet-async';
+import ButtonSpinner from '../../components/loader/ButtonSpinner';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -101,6 +103,9 @@ const Login = () => {
 
   return (
     <main className="lagin-page">
+        <Helmet>
+        <title>Log In</title>
+      </Helmet>
       <section className="login-container">
         <h1 className="login-title"> Welcome To Your Account </h1>
 
@@ -167,7 +172,7 @@ const Login = () => {
               className="login-button"
               disabled={loading}
             >
-              {loading ? 'loading' : 'Login'}
+              {loading ? <ButtonSpinner/> : 'Login'}
             </button>
             <p className="haveNoAccount">
               Don not have an account? <NavLink to="/register">Sign Up</NavLink>

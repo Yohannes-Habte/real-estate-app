@@ -10,6 +10,7 @@ import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import houseRouter from './routes/houseRoutes.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js';
+import commentRouter from './routes/commentRouter.js';
 
 // Express App
 const app = express();
@@ -48,6 +49,7 @@ app.get('/yes', (req, res) => {
 app.use('/api/auths', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/houses', houseRouter);
+app.use('/api/comments', commentRouter);
 
 // Global error handler
 app.use(globalErrorHandler);

@@ -7,6 +7,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
 import HouseInfos from '../../components/houseDetails/HouseInfos';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
   SwiperCore.use([Navigation]);
@@ -66,6 +67,9 @@ const Home = () => {
 
   return (
     <main className="home-page">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <section className="home-page-container">
         <h1 className="home-title">
           Find the house that perfectly fits your dream

@@ -18,6 +18,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
+import ButtonSpinner from '../../components/loader/ButtonSpinner';
 
 // Initial values for the hours form data
 const initialState = {
@@ -204,6 +206,9 @@ const Houses = () => {
 
   return (
     <main className="houses-page">
+      <Helmet>
+        <title>Houses</title>
+      </Helmet>
       <section className="houses-container">
         <h1 className="houses-title">Create a House</h1>
 
@@ -482,7 +487,7 @@ const Houses = () => {
             disabled={loading || uploading}
             className="button-house-details"
           >
-            {loading ? 'Loading...' : 'Send House Details'}
+            {loading ? <ButtonSpinner /> : 'Send'}
           </button>
 
           {formError && <p className="upload-image-error">{formError}</p>}

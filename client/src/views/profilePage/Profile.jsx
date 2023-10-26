@@ -21,6 +21,8 @@ import {
   updateUserSuccess,
 } from '../../redux/user/userSlice';
 import { HiOutlineEye } from 'react-icons/hi';
+import { Helmet } from 'react-helmet-async';
+import ButtonSpinner from '../../components/loader/ButtonSpinner';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -156,6 +158,9 @@ const Profile = () => {
 
   return (
     <main className="profile-page">
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <section className="profile-container">
         <h1 className="profile-title">Profile</h1>
 
@@ -253,7 +258,7 @@ const Profile = () => {
           </div>
 
           <button disabled={loading} className="update-button">
-            {loading ? 'loading' : 'Update'}
+            {loading ? <ButtonSpinner /> : 'Update'}
           </button>
 
           {/* Create house or houses */}

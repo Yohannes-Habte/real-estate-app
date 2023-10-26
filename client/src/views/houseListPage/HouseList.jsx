@@ -18,6 +18,8 @@ import {
   FaShare,
 } from 'react-icons/fa';
 import Contact from '../../components/contact/Contact';
+import { Helmet } from 'react-helmet-async';
+import ButtonSpinner from '../../components/loader/ButtonSpinner';
 
 const HouseList = () => {
   //& Step 2: Initialize the SwiperCore as follows
@@ -56,6 +58,9 @@ const HouseList = () => {
 
   return (
     <main className="list-house-page">
+      <Helmet>
+        <title>House List</title>
+      </Helmet>
       {loading && <p> Loading... </p>}
 
       {error && <p> {error} </p>}
@@ -166,7 +171,7 @@ const HouseList = () => {
                   onClick={() => setContact(true)}
                   className="house-list-btn"
                 >
-                  Contact landlord
+                  {loading ? <ButtonSpinner /> : 'Contact landlord'}
                 </button>
               )}
 

@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import Auth from '../../components/google/Auth';
 import { validateEmail, validatePassword } from '../../utiles/features';
 import { HiOutlineEye } from 'react-icons/hi';
+import { Helmet } from 'react-helmet-async';
+import ButtonSpinner from '../../components/loader/ButtonSpinner';
 
 // Initial State
 const initialSate = {
@@ -93,6 +95,9 @@ const Register = () => {
 
   return (
     <main className="register-page">
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
       <section className="register-container">
         <h1 className="title"> Create Account</h1>
         <fieldset className="register-field">
@@ -169,7 +174,7 @@ const Register = () => {
             </div>
 
             <button className="register-button">
-              {loading ? 'loading' : 'Sign Up'}
+              {loading ? <ButtonSpinner /> : 'Sign Up'}
             </button>
 
             <Auth signup={'signup'} />
