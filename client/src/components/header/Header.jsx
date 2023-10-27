@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa';
-import './Header.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
+import "./Header.scss";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUserFailure,
   deleteUserStart,
@@ -10,8 +10,8 @@ import {
   userLogoutFailure,
   userLogoutStart,
   userLogoutSuccess,
-} from '../../redux/user/userSlice';
-import axios from 'axios';
+} from "../../redux/user/userSlice";
+import axios from "axios";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   // Local state variables
-  const [searchItem, setSearchItem] = useState('');
+  const [searchItem, setSearchItem] = useState("");
   const [open, setOpen] = useState(false);
 
   // Handle search submit
@@ -30,7 +30,7 @@ const Header = () => {
     // URLSearchParams is used to display the url based on the search item (searchItem)
     const urlParams = new URLSearchParams(window.location.search);
     // set the urlparams based on the searchItem
-    urlParams.set('searchItem', searchItem);
+    urlParams.set("searchItem", searchItem);
     // since some of the searchItems are numbers, you need to conver them in string
     const searchQuery = urlParams.toString();
 
@@ -41,7 +41,7 @@ const Header = () => {
   //! If you want to display on the search bar what you write on url, you need to apply useEffect hook
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const searchTermFromUrl = urlParams.get('searchTerm');
+    const searchTermFromUrl = urlParams.get("searchTerm");
     if (searchTermFromUrl) {
       setSearchItem(searchTermFromUrl);
     }
@@ -76,17 +76,19 @@ const Header = () => {
         dispatch(userLogoutFailure(data.message));
       }
       dispatch(userLogoutSuccess(data));
+
+      navigate("/login");
     } catch (error) {
       dispatch(userLogoutFailure(error.message));
     }
   };
 
   // Active NavLink styling
-  const activeLink = ({ isActive }) => (isActive ? `active` : 'passive');
+  const activeLink = ({ isActive }) => (isActive ? `active` : "passive");
 
   return (
     <header className="header">
-      <NavLink to={'/'}>
+      <NavLink to={"/"}>
         <h1 className="logo">LisaEstate</h1>
       </NavLink>
 
@@ -112,17 +114,17 @@ const Header = () => {
       {/* Navigation items */}
       <ul className="list-items">
         <li className="list-item">
-          <NavLink to={'/'} className={activeLink}>
+          <NavLink to={"/"} className={activeLink}>
             Home
           </NavLink>
         </li>
         <li className="list-item">
-          <NavLink to={'/about'} className={activeLink}>
+          <NavLink to={"/about"} className={activeLink}>
             About
           </NavLink>
         </li>
         <li className="list-item">
-          <NavLink to={'/contact'} className={activeLink}>
+          <NavLink to={"/contact"} className={activeLink}>
             Contact
           </NavLink>
         </li>
@@ -132,7 +134,7 @@ const Header = () => {
               onClick={() => setOpen(!open)}
               className="image"
               src={currentUser.image}
-              alt={'Profile'}
+              alt={"Profile"}
             />
             {open && (
               <ul className="user-account">
@@ -148,7 +150,7 @@ const Header = () => {
           </figure>
         ) : (
           <li className="list-item">
-            <NavLink to={'/profile'} className={activeLink}>
+            <NavLink to={"/profile"} className={activeLink}>
               Sign In
             </NavLink>
           </li>

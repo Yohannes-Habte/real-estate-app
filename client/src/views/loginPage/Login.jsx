@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import './Login.scss';
-import axios from 'axios';
-import { FaUserAlt } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
-import { RiLockPasswordFill } from 'react-icons/ri';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { AiFillEyeInvisible } from 'react-icons/ai';
-import { HiOutlineEye } from 'react-icons/hi';
-import { toast } from 'react-toastify';
-import { validateEmail, validatePassword } from '../../utiles/features';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import "./Login.scss";
+import axios from "axios";
+import { FaUserAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AiFillEyeInvisible } from "react-icons/ai";
+import { HiOutlineEye } from "react-icons/hi";
+import { toast } from "react-toastify";
+import { validateEmail, validatePassword } from "../../utiles/features";
+import { useDispatch, useSelector } from "react-redux";
 import {
   signInStart,
   signInSuccess,
   signInFailure,
-} from '../../redux/user/userSlice';
-import Auth from '../../components/google/Auth';
-import { Helmet } from 'react-helmet-async';
-import ButtonSpinner from '../../components/loader/ButtonSpinner';
+} from "../../redux/user/userSlice";
+import Auth from "../../components/google/Auth";
+import { Helmet } from "react-helmet-async";
+import ButtonSpinner from "../../components/loader/ButtonSpinner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,17 +27,17 @@ const Login = () => {
   const dispatch = useDispatch();
 
   // Local State variables
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   // Update input data
   const updateDat = (e) => {
     switch (e.target.name) {
-      case 'email':
+      case "email":
         setEmail(e.target.value);
         break;
-      case 'password':
+      case "password":
         setPassword(e.target.value);
         break;
       default:
@@ -52,8 +52,8 @@ const Login = () => {
 
   // Reset all state variables for the login form
   const reset = () => {
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   // Submit a logged in user
@@ -61,16 +61,16 @@ const Login = () => {
     event.preventDefault();
 
     if (!email) {
-      return toast.error('Please fill in the email fields!');
+      return toast.error("Please fill in the email fields!");
     }
 
     if (!validateEmail(email)) {
-      return toast.error('Please enter a valid email!');
+      return toast.error("Please enter a valid email!");
     }
 
     if (!validatePassword(password)) {
       return toast.error(
-        'Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
+        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character."
       );
     }
 
@@ -82,7 +82,7 @@ const Login = () => {
         password: password,
       };
       const { data } = await axios.post(
-        'http://localhost:5000/api/auths/login',
+        "http://localhost:5000/api/auths/login",
         loginUser,
         { withCredentials: true }
       );
@@ -94,7 +94,7 @@ const Login = () => {
       }
 
       dispatch(signInSuccess(data));
-      navigate('/profile');
+      navigate("/profile");
       reset();
     } catch (err) {
       dispatch(signInFailure(err.message));
@@ -103,7 +103,7 @@ const Login = () => {
 
   return (
     <main className="lagin-page">
-        <Helmet>
+      <Helmet>
         <title>Log In</title>
       </Helmet>
       <section className="login-container">
@@ -133,11 +133,11 @@ const Login = () => {
               <span className="input-highlight"></span>
             </div>
 
-            {/* Email Address */}
+            {/* Password */}
             <div className="input-container">
               <RiLockPasswordFill className="icon" />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={password}
                 onChange={updateDat}
@@ -163,7 +163,7 @@ const Login = () => {
                 <span>Keep me signed in</span>
               </div>
               <div className="forget-password">
-                <a href=""> Forget your password? </a>
+                <Link to={"/forget-password"}> Forget your password? </Link>
               </div>
             </div>
             <button
@@ -172,13 +172,13 @@ const Login = () => {
               className="login-button"
               disabled={loading}
             >
-              {loading ? <ButtonSpinner/> : 'Login'}
+              {loading ? <ButtonSpinner /> : "Login"}
             </button>
             <p className="haveNoAccount">
               Don not have an account? <NavLink to="/register">Sign Up</NavLink>
             </p>
 
-            <Auth login={'login'} />
+            <Auth login={"login"} />
           </form>
         </fieldset>
         {error && <p className="error-message"> {error} </p>}
